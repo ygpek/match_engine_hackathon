@@ -1,0 +1,1483 @@
+{
+  "individual_performance_review": null,
+  "schema_version": "1.0",
+  "phase": "prematch",
+  "fixture": {
+    "match_id": "H20250287",
+    "date": "2026-02-28T00:00:00",
+    "home_team_id": "T005",
+    "away_team_id": "T010"
+  },
+  "state": {
+    "phase": "prematch",
+    "minute": 0,
+    "home_goals": 0,
+    "away_goals": 0,
+    "shots": {
+      "T005": {
+        "shots": 0,
+        "shots_on_target": 0,
+        "xg": 0.0,
+        "goals": 0
+      },
+      "T010": {
+        "shots": 0,
+        "shots_on_target": 0,
+        "xg": 0.0,
+        "goals": 0
+      }
+    },
+    "active_player_ids": {
+      "T005": [
+        "P0089",
+        "P0094",
+        "P0091",
+        "P0095",
+        "P0098",
+        "P0099",
+        "P0100",
+        "P0101",
+        "P0103",
+        "P0106",
+        "P0110"
+      ],
+      "T010": [
+        "P0199",
+        "P0201",
+        "P0203",
+        "P0207",
+        "P0205",
+        "P0209",
+        "P0210",
+        "P0211",
+        "P0213",
+        "P0214",
+        "P0218"
+      ]
+    },
+    "completed_half_stats": {
+      "T005": {
+        "passes_attempted": 0,
+        "passes_completed": 0,
+        "tackles": 0,
+        "interceptions": 0,
+        "recoveries": 0,
+        "corners": 0,
+        "complete_through_minute": 0
+      },
+      "T010": {
+        "passes_attempted": 0,
+        "passes_completed": 0,
+        "tackles": 0,
+        "interceptions": 0,
+        "recoveries": 0,
+        "corners": 0,
+        "complete_through_minute": 0
+      }
+    },
+    "note": "Pass/defensive totals shown only for completed halves; shot counts update live."
+  },
+  "league_expectations": {
+    "season_id": "2025-26",
+    "basis": "Fixed synthetic competitive-tier position ranges, not statistical forecasts",
+    "standings_tiebreakers": "Points, goal difference, goals for, team name",
+    "teams": {
+      "home": {
+        "team_id": "T005",
+        "team_name": "Eastborough",
+        "category": "title_contender",
+        "expected_position_min": 1,
+        "expected_position_max": 3,
+        "before_match": {
+          "position": 2,
+          "played": 28,
+          "points": 56,
+          "goal_difference": 26,
+          "expectation_status": "within",
+          "positions_outside_range": 0
+        }
+      },
+      "away": {
+        "team_id": "T010",
+        "team_name": "Lakeside FC",
+        "category": "title_contender",
+        "expected_position_min": 1,
+        "expected_position_max": 3,
+        "before_match": {
+          "position": 1,
+          "played": 28,
+          "points": 65,
+          "goal_difference": 43,
+          "expectation_status": "within",
+          "positions_outside_range": 0
+        }
+      }
+    }
+  },
+  "historical_context": {
+    "phase": "prematch",
+    "as_of_exclusive": "2026-02-28",
+    "team": {
+      "id": "T005",
+      "name": "Eastborough"
+    },
+    "opponent": {
+      "id": "T010",
+      "name": "Lakeside FC"
+    },
+    "historical_matches_available": 660,
+    "recent_form": {
+      "sample_size": 5,
+      "record_oldest_to_newest": "WWDWW",
+      "wins": 4,
+      "draws": 1,
+      "losses": 0,
+      "points": 13,
+      "goals_for": 14,
+      "goals_against": 2,
+      "xg_for_per_match": 1.87,
+      "shots_per_match": 16.4,
+      "possession_pct_mean": 68.71,
+      "source_match_ids": [
+        "H20250232",
+        "H20250243",
+        "H20250254",
+        "H20250265",
+        "H20250276"
+      ]
+    },
+    "home_form": {
+      "sample_size": 5,
+      "record_oldest_to_newest": "WWDWW",
+      "wins": 4,
+      "draws": 1,
+      "losses": 0,
+      "points": 13,
+      "goals_for": 14,
+      "goals_against": 2,
+      "xg_for_per_match": 1.87,
+      "shots_per_match": 16.4,
+      "possession_pct_mean": 68.71,
+      "source_match_ids": [
+        "H20250232",
+        "H20250243",
+        "H20250254",
+        "H20250265",
+        "H20250276"
+      ]
+    },
+    "away_form": {
+      "sample_size": 5,
+      "record_oldest_to_newest": "LDWDW",
+      "wins": 2,
+      "draws": 2,
+      "losses": 1,
+      "points": 8,
+      "goals_for": 6,
+      "goals_against": 8,
+      "xg_for_per_match": 1.45,
+      "shots_per_match": 11.2,
+      "possession_pct_mean": 51.78,
+      "source_match_ids": [
+        "H20250185",
+        "H20250194",
+        "H20250203",
+        "H20250212",
+        "H20250221"
+      ]
+    },
+    "halftime_patterns": {
+      "leading": {
+        "halftime_state": "leading",
+        "sample_size": 20,
+        "full_time_wins": 19,
+        "full_time_draws": 0,
+        "full_time_losses": 1,
+        "full_time_win_rate_pct": 95.0,
+        "source_match_ids": [
+          "H20240135",
+          "H20240179",
+          "H20240209",
+          "H20240236",
+          "H20240254",
+          "H20240292",
+          "H20240314",
+          "H20240325",
+          "H20240369",
+          "H20240380",
+          "H20250004",
+          "H20250031",
+          "H20250053",
+          "H20250075",
+          "H20250086",
+          "H20250140",
+          "H20250232",
+          "H20250243",
+          "H20250265",
+          "H20250276"
+        ]
+      },
+      "level": {
+        "halftime_state": "level",
+        "sample_size": 20,
+        "full_time_wins": 8,
+        "full_time_draws": 9,
+        "full_time_losses": 3,
+        "full_time_win_rate_pct": 40.0,
+        "source_match_ids": [
+          "H20240272",
+          "H20240281",
+          "H20240336",
+          "H20240347",
+          "H20240358",
+          "H20250013",
+          "H20250042",
+          "H20250064",
+          "H20250097",
+          "H20250108",
+          "H20250119",
+          "H20250130",
+          "H20250149",
+          "H20250158",
+          "H20250167",
+          "H20250176",
+          "H20250194",
+          "H20250203",
+          "H20250221",
+          "H20250254"
+        ]
+      },
+      "trailing": {
+        "halftime_state": "trailing",
+        "sample_size": 7,
+        "full_time_wins": 0,
+        "full_time_draws": 1,
+        "full_time_losses": 6,
+        "full_time_win_rate_pct": 0.0,
+        "source_match_ids": [
+          "H20240037",
+          "H20240200",
+          "H20240263",
+          "H20240303",
+          "H20250022",
+          "H20250185",
+          "H20250212"
+        ]
+      }
+    },
+    "opponent_recent_form": {
+      "sample_size": 5,
+      "record_oldest_to_newest": "WWWLD",
+      "wins": 3,
+      "draws": 1,
+      "losses": 1,
+      "points": 10,
+      "goals_for": 11,
+      "goals_against": 6,
+      "xg_for_per_match": 2.63,
+      "shots_per_match": 19.0,
+      "possession_pct_mean": 41.73,
+      "source_match_ids": [
+        "H20250239",
+        "H20250250",
+        "H20250260",
+        "H20250269",
+        "H20250278"
+      ]
+    },
+    "head_to_head": {
+      "sample_size": 3,
+      "wins": 1,
+      "draws": 0,
+      "losses": 2,
+      "source_match_ids": [
+        "H20240113",
+        "H20240303",
+        "H20250097"
+      ]
+    },
+    "evidence_note": "All aggregates come from historical synthetic matches. Rates are descriptive, not predictions. Source match IDs are included for traceability.",
+    "excluded_match_id": "H20250287",
+    "form_field_semantics": {
+      "recent_form": "Featured home team's overall recent matches",
+      "home_form": "Featured home team's matches played at home only",
+      "away_form": "Featured home team's matches played away only; NOT featured away team's form",
+      "opponent_recent_form": "Featured away team's overall recent matches"
+    }
+  },
+  "team_recent_form": {
+    "home": {
+      "team_id": "T005",
+      "recent_form": {
+        "sample_size": 5,
+        "record_oldest_to_newest": "WWDWW",
+        "wins": 4,
+        "draws": 1,
+        "losses": 0,
+        "points": 13,
+        "goals_for": 14,
+        "goals_against": 2,
+        "xg_for_per_match": 1.87,
+        "shots_per_match": 16.4,
+        "possession_pct_mean": 68.71,
+        "source_match_ids": [
+          "H20250232",
+          "H20250243",
+          "H20250254",
+          "H20250265",
+          "H20250276"
+        ]
+      }
+    },
+    "away": {
+      "team_id": "T010",
+      "recent_form": {
+        "sample_size": 5,
+        "record_oldest_to_newest": "WWWLD",
+        "wins": 3,
+        "draws": 1,
+        "losses": 1,
+        "points": 10,
+        "goals_for": 11,
+        "goals_against": 6,
+        "xg_for_per_match": 2.63,
+        "shots_per_match": 19.0,
+        "possession_pct_mean": 41.73,
+        "source_match_ids": [
+          "H20250239",
+          "H20250250",
+          "H20250260",
+          "H20250269",
+          "H20250278"
+        ]
+      }
+    }
+  },
+  "tactical_analysis": {
+    "home": {
+      "team_id": "T005",
+      "active_player_ids": [
+        "P0089",
+        "P0091",
+        "P0094",
+        "P0095",
+        "P0098",
+        "P0099",
+        "P0100",
+        "P0101",
+        "P0103",
+        "P0106",
+        "P0110"
+      ],
+      "available_bench_player_ids": [
+        "P0090",
+        "P0092",
+        "P0093",
+        "P0096",
+        "P0097",
+        "P0102",
+        "P0104",
+        "P0105",
+        "P0107",
+        "P0108",
+        "P0109"
+      ],
+      "scenario": "balanced",
+      "substitution_options_by_position": [
+        {
+          "position": "CB",
+          "eligible_bench_player_ids": [
+            "P0092",
+            "P0093"
+          ],
+          "ranked_candidates": [
+            {
+              "scenario": "balanced",
+              "player_id": "P0093",
+              "team_id": "T005",
+              "primary_position": "CB",
+              "suitability_score": 52.13,
+              "attacking_score": 38.68,
+              "passing_score": 36.79,
+              "defending_score": 74.72,
+              "possession_score": 39.3,
+              "physical_score": 71.16,
+              "total_minutes": 1747,
+              "player_name": "Max Keller"
+            },
+            {
+              "scenario": "balanced",
+              "player_id": "P0092",
+              "team_id": "T005",
+              "primary_position": "CB",
+              "suitability_score": 48.18,
+              "attacking_score": 37.6,
+              "passing_score": 76.1,
+              "defending_score": 25.17,
+              "possession_score": 60.35,
+              "physical_score": 41.67,
+              "total_minutes": 1722,
+              "player_name": "Diego Richter"
+            }
+          ]
+        },
+        {
+          "position": "WB",
+          "eligible_bench_player_ids": [
+            "P0096",
+            "P0097"
+          ],
+          "ranked_candidates": [
+            {
+              "scenario": "balanced",
+              "player_id": "P0096",
+              "team_id": "T005",
+              "primary_position": "WB",
+              "suitability_score": 58.3,
+              "attacking_score": 79.92,
+              "passing_score": 56.92,
+              "defending_score": 8.51,
+              "possession_score": 86.18,
+              "physical_score": 59.99,
+              "total_minutes": 1682,
+              "player_name": "Benjamin Mendez"
+            },
+            {
+              "scenario": "balanced",
+              "player_id": "P0097",
+              "team_id": "T005",
+              "primary_position": "WB",
+              "suitability_score": 48.42,
+              "attacking_score": 60.0,
+              "passing_score": 99.16,
+              "defending_score": 15.55,
+              "possession_score": 57.95,
+              "physical_score": 9.42,
+              "total_minutes": 1090,
+              "player_name": "Stefan Popov"
+            }
+          ]
+        },
+        {
+          "position": "CM",
+          "eligible_bench_player_ids": [
+            "P0102"
+          ],
+          "ranked_candidates": [
+            {
+              "scenario": "balanced",
+              "player_id": "P0102",
+              "team_id": "T005",
+              "primary_position": "CM",
+              "suitability_score": 54.28,
+              "attacking_score": 62.31,
+              "passing_score": 22.73,
+              "defending_score": 71.88,
+              "possession_score": 46.25,
+              "physical_score": 68.23,
+              "total_minutes": 3935,
+              "player_name": "Viktor Fischer"
+            }
+          ]
+        },
+        {
+          "position": "AMW",
+          "eligible_bench_player_ids": [
+            "P0104",
+            "P0105",
+            "P0107"
+          ],
+          "ranked_candidates": [
+            {
+              "scenario": "balanced",
+              "player_id": "P0105",
+              "team_id": "T005",
+              "primary_position": "AMW",
+              "suitability_score": 55.58,
+              "attacking_score": 80.6,
+              "passing_score": 38.59,
+              "defending_score": 28.53,
+              "possession_score": 64.22,
+              "physical_score": 65.95,
+              "total_minutes": 2236,
+              "player_name": "Noah Ramos"
+            },
+            {
+              "scenario": "balanced",
+              "player_id": "P0107",
+              "team_id": "T005",
+              "primary_position": "AMW",
+              "suitability_score": 47.35,
+              "attacking_score": 74.75,
+              "passing_score": 85.13,
+              "defending_score": 24.86,
+              "possession_score": 37.33,
+              "physical_score": 14.66,
+              "total_minutes": 1028,
+              "player_name": "Rafael Zeman"
+            },
+            {
+              "scenario": "balanced",
+              "player_id": "P0104",
+              "team_id": "T005",
+              "primary_position": "AMW",
+              "suitability_score": 43.45,
+              "attacking_score": 30.88,
+              "passing_score": 72.74,
+              "defending_score": 19.87,
+              "possession_score": 57.32,
+              "physical_score": 36.45,
+              "total_minutes": 1212,
+              "player_name": "Leo Ortega"
+            }
+          ]
+        },
+        {
+          "position": "ST",
+          "eligible_bench_player_ids": [
+            "P0108",
+            "P0109"
+          ],
+          "ranked_candidates": []
+        }
+      ],
+      "starter_similarity": [
+        {
+          "starter_player_id": "P0091",
+          "similar_players": [
+            {
+              "reference_player_id": "P0091",
+              "player_id": "P0334",
+              "comparison_position": "CB",
+              "similarity": 0.8467828710846703,
+              "total_minutes": 5074,
+              "player_name": "Theo Hansen",
+              "team_id": "T016"
+            },
+            {
+              "reference_player_id": "P0091",
+              "player_id": "P0311",
+              "comparison_position": "CB",
+              "similarity": 0.8409152681331867,
+              "total_minutes": 5305,
+              "player_name": "Benjamin Dvorak",
+              "team_id": "T015"
+            },
+            {
+              "reference_player_id": "P0091",
+              "player_id": "P0003",
+              "comparison_position": "CB",
+              "similarity": 0.7993370876897821,
+              "total_minutes": 4477,
+              "player_name": "Zoran Bennett",
+              "team_id": "T001"
+            }
+          ]
+        },
+        {
+          "starter_player_id": "P0094",
+          "similar_players": [
+            {
+              "reference_player_id": "P0094",
+              "player_id": "P0226",
+              "comparison_position": "CB",
+              "similarity": 0.868405971653807,
+              "total_minutes": 4732,
+              "player_name": "Kevin Muller",
+              "team_id": "T011"
+            },
+            {
+              "reference_player_id": "P0094",
+              "player_id": "P0334",
+              "comparison_position": "CB",
+              "similarity": 0.7406914915624544,
+              "total_minutes": 5074,
+              "player_name": "Theo Hansen",
+              "team_id": "T016"
+            },
+            {
+              "reference_player_id": "P0094",
+              "player_id": "P0424",
+              "comparison_position": "CB",
+              "similarity": 0.7262391496478364,
+              "total_minutes": 5155,
+              "player_name": "Pablo Ivanov",
+              "team_id": "T020"
+            }
+          ]
+        },
+        {
+          "starter_player_id": "P0095",
+          "similar_players": [
+            {
+              "reference_player_id": "P0095",
+              "player_id": "P0030",
+              "comparison_position": "WB",
+              "similarity": 0.8683947643553538,
+              "total_minutes": 5132,
+              "player_name": "Victor Ivanov",
+              "team_id": "T002"
+            },
+            {
+              "reference_player_id": "P0095",
+              "player_id": "P0053",
+              "comparison_position": "WB",
+              "similarity": 0.8542023237187142,
+              "total_minutes": 5445,
+              "player_name": "Rafael Marin",
+              "team_id": "T003"
+            },
+            {
+              "reference_player_id": "P0095",
+              "player_id": "P0251",
+              "comparison_position": "WB",
+              "similarity": 0.813353987963407,
+              "total_minutes": 4992,
+              "player_name": "Rafael Urban",
+              "team_id": "T012"
+            }
+          ]
+        },
+        {
+          "starter_player_id": "P0098",
+          "similar_players": [
+            {
+              "reference_player_id": "P0098",
+              "player_id": "P0139",
+              "comparison_position": "WB",
+              "similarity": 0.8689166369573995,
+              "total_minutes": 5271,
+              "player_name": "Samuel Rivera",
+              "team_id": "T007"
+            },
+            {
+              "reference_player_id": "P0098",
+              "player_id": "P0030",
+              "comparison_position": "WB",
+              "similarity": 0.8684542869436833,
+              "total_minutes": 5132,
+              "player_name": "Victor Ivanov",
+              "team_id": "T002"
+            },
+            {
+              "reference_player_id": "P0098",
+              "player_id": "P0207",
+              "comparison_position": "WB",
+              "similarity": 0.8252907878810755,
+              "total_minutes": 4261,
+              "player_name": "Simon Bennett",
+              "team_id": "T010"
+            }
+          ]
+        },
+        {
+          "starter_player_id": "P0099",
+          "similar_players": [
+            {
+              "reference_player_id": "P0099",
+              "player_id": "P0430",
+              "comparison_position": "CM",
+              "similarity": 0.9352648434753221,
+              "total_minutes": 5637,
+              "player_name": "Martin Varga",
+              "team_id": "T020"
+            },
+            {
+              "reference_player_id": "P0099",
+              "player_id": "P0366",
+              "comparison_position": "CM",
+              "similarity": 0.8115665814601614,
+              "total_minutes": 5455,
+              "player_name": "Gabriel Horak",
+              "team_id": "T017"
+            },
+            {
+              "reference_player_id": "P0099",
+              "player_id": "P0057",
+              "comparison_position": "CM",
+              "similarity": 0.7754313520484551,
+              "total_minutes": 5538,
+              "player_name": "Andrej Costa",
+              "team_id": "T003"
+            }
+          ]
+        },
+        {
+          "starter_player_id": "P0100",
+          "similar_players": [
+            {
+              "reference_player_id": "P0100",
+              "player_id": "P0388",
+              "comparison_position": "CM",
+              "similarity": 0.8983546442432868,
+              "total_minutes": 5409,
+              "player_name": "Petr Marin",
+              "team_id": "T018"
+            },
+            {
+              "reference_player_id": "P0100",
+              "player_id": "P0011",
+              "comparison_position": "CM",
+              "similarity": 0.8544913868375573,
+              "total_minutes": 5443,
+              "player_name": "Martin Miller",
+              "team_id": "T001"
+            },
+            {
+              "reference_player_id": "P0100",
+              "player_id": "P0385",
+              "comparison_position": "CM",
+              "similarity": 0.8211819175998312,
+              "total_minutes": 4635,
+              "player_name": "David Kovac",
+              "team_id": "T018"
+            }
+          ]
+        },
+        {
+          "starter_player_id": "P0101",
+          "similar_players": [
+            {
+              "reference_player_id": "P0101",
+              "player_id": "P0212",
+              "comparison_position": "CM",
+              "similarity": 0.9025499492211008,
+              "total_minutes": 3040,
+              "player_name": "Gabriel Jensen",
+              "team_id": "T010"
+            },
+            {
+              "reference_player_id": "P0101",
+              "player_id": "P0432",
+              "comparison_position": "CM",
+              "similarity": 0.8980180577951905,
+              "total_minutes": 3883,
+              "player_name": "Liam Popov",
+              "team_id": "T020"
+            },
+            {
+              "reference_player_id": "P0101",
+              "player_id": "P0077",
+              "comparison_position": "CM",
+              "similarity": 0.8751382058492267,
+              "total_minutes": 4818,
+              "player_name": "Erik Sokolov",
+              "team_id": "T004"
+            }
+          ]
+        },
+        {
+          "starter_player_id": "P0103",
+          "similar_players": [
+            {
+              "reference_player_id": "P0103",
+              "player_id": "P0016",
+              "comparison_position": "AMW",
+              "similarity": 0.8870242476562201,
+              "total_minutes": 4865,
+              "player_name": "Hugo Dvorak",
+              "team_id": "T001"
+            },
+            {
+              "reference_player_id": "P0103",
+              "player_id": "P0106",
+              "comparison_position": "AMW",
+              "similarity": 0.8355970027054924,
+              "total_minutes": 2756,
+              "player_name": "Felix Gomez",
+              "team_id": "T005"
+            },
+            {
+              "reference_player_id": "P0103",
+              "player_id": "P0323",
+              "comparison_position": "AMW",
+              "similarity": 0.8354469839019573,
+              "total_minutes": 4720,
+              "player_name": "Marco Navarro",
+              "team_id": "T015"
+            }
+          ]
+        },
+        {
+          "starter_player_id": "P0106",
+          "similar_players": [
+            {
+              "reference_player_id": "P0106",
+              "player_id": "P0103",
+              "comparison_position": "AMW",
+              "similarity": 0.8355970027054925,
+              "total_minutes": 4648,
+              "player_name": "Oliver Vega",
+              "team_id": "T005"
+            },
+            {
+              "reference_player_id": "P0106",
+              "player_id": "P0059",
+              "comparison_position": "AMW",
+              "similarity": 0.7307064675834979,
+              "total_minutes": 4360,
+              "player_name": "Adam Dvorak",
+              "team_id": "T003"
+            },
+            {
+              "reference_player_id": "P0106",
+              "player_id": "P0016",
+              "comparison_position": "AMW",
+              "similarity": 0.7035851208953764,
+              "total_minutes": 4865,
+              "player_name": "Hugo Dvorak",
+              "team_id": "T001"
+            }
+          ]
+        },
+        {
+          "starter_player_id": "P0110",
+          "similar_players": [
+            {
+              "reference_player_id": "P0110",
+              "player_id": "P0130",
+              "comparison_position": "ST",
+              "similarity": 0.7814493438885639,
+              "total_minutes": 5532,
+              "player_name": "Benjamin Rossi",
+              "team_id": "T006"
+            },
+            {
+              "reference_player_id": "P0110",
+              "player_id": "P0350",
+              "comparison_position": "ST",
+              "similarity": 0.6837347097545526,
+              "total_minutes": 4255,
+              "player_name": "Noah Marin",
+              "team_id": "T016"
+            },
+            {
+              "reference_player_id": "P0110",
+              "player_id": "P0021",
+              "comparison_position": "ST",
+              "similarity": 0.5966478399883622,
+              "total_minutes": 4272,
+              "player_name": "Ivan Vasquez",
+              "team_id": "T001"
+            }
+          ]
+        }
+      ],
+      "substitution_comparisons": [
+        {
+          "out_player_id": "P0101",
+          "in_player_id": "P0102",
+          "out_player_name": "David Schmidt",
+          "in_player_name": "Viktor Fischer",
+          "position": "CM",
+          "scenario": "balanced",
+          "out_suitability": 49.65,
+          "in_suitability": 54.28,
+          "suitability_difference": 4.63,
+          "interpretation": "Higher historical scenario-relative suitability; not a predicted in-match performance gain."
+        }
+      ],
+      "note": "Rankings are historical position-relative scores, not win probabilities. Position-for-position options only; goalkeeper suggestions excluded."
+    },
+    "away": {
+      "team_id": "T010",
+      "active_player_ids": [
+        "P0199",
+        "P0201",
+        "P0203",
+        "P0205",
+        "P0207",
+        "P0209",
+        "P0210",
+        "P0211",
+        "P0213",
+        "P0214",
+        "P0218"
+      ],
+      "available_bench_player_ids": [
+        "P0200",
+        "P0202",
+        "P0204",
+        "P0206",
+        "P0208",
+        "P0212",
+        "P0215",
+        "P0216",
+        "P0217",
+        "P0219",
+        "P0220"
+      ],
+      "scenario": "balanced",
+      "substitution_options_by_position": [
+        {
+          "position": "CB",
+          "eligible_bench_player_ids": [
+            "P0202",
+            "P0204"
+          ],
+          "ranked_candidates": [
+            {
+              "scenario": "balanced",
+              "player_id": "P0202",
+              "team_id": "T010",
+              "primary_position": "CB",
+              "suitability_score": 41.34,
+              "attacking_score": 79.3,
+              "passing_score": 29.05,
+              "defending_score": 22.28,
+              "possession_score": 57.21,
+              "physical_score": 18.86,
+              "total_minutes": 1762,
+              "player_name": "Martin Vasquez"
+            }
+          ]
+        },
+        {
+          "position": "WB",
+          "eligible_bench_player_ids": [
+            "P0206",
+            "P0208"
+          ],
+          "ranked_candidates": [
+            {
+              "scenario": "balanced",
+              "player_id": "P0206",
+              "team_id": "T010",
+              "primary_position": "WB",
+              "suitability_score": 44.3,
+              "attacking_score": 83.49,
+              "passing_score": 2.32,
+              "defending_score": 62.46,
+              "possession_score": 18.11,
+              "physical_score": 55.14,
+              "total_minutes": 1187,
+              "player_name": "Benjamin Diaz"
+            },
+            {
+              "scenario": "balanced",
+              "player_id": "P0208",
+              "team_id": "T010",
+              "primary_position": "WB",
+              "suitability_score": 32.88,
+              "attacking_score": 53.7,
+              "passing_score": 30.89,
+              "defending_score": 9.68,
+              "possession_score": 24.66,
+              "physical_score": 45.49,
+              "total_minutes": 1368,
+              "player_name": "Paul Vidal"
+            }
+          ]
+        },
+        {
+          "position": "CM",
+          "eligible_bench_player_ids": [
+            "P0212"
+          ],
+          "ranked_candidates": [
+            {
+              "scenario": "balanced",
+              "player_id": "P0212",
+              "team_id": "T010",
+              "primary_position": "CM",
+              "suitability_score": 53.49,
+              "attacking_score": 79.72,
+              "passing_score": 83.21,
+              "defending_score": 27.82,
+              "possession_score": 54.62,
+              "physical_score": 22.08,
+              "total_minutes": 3040,
+              "player_name": "Gabriel Jensen"
+            }
+          ]
+        },
+        {
+          "position": "AMW",
+          "eligible_bench_player_ids": [
+            "P0215",
+            "P0216",
+            "P0217"
+          ],
+          "ranked_candidates": [
+            {
+              "scenario": "balanced",
+              "player_id": "P0215",
+              "team_id": "T010",
+              "primary_position": "AMW",
+              "suitability_score": 83.23,
+              "attacking_score": 96.43,
+              "passing_score": 92.56,
+              "defending_score": 77.66,
+              "possession_score": 68.62,
+              "physical_score": 80.89,
+              "total_minutes": 4227,
+              "player_name": "Benjamin Jensen"
+            },
+            {
+              "scenario": "balanced",
+              "player_id": "P0216",
+              "team_id": "T010",
+              "primary_position": "AMW",
+              "suitability_score": 80.35,
+              "attacking_score": 93.34,
+              "passing_score": 92.38,
+              "defending_score": 52.15,
+              "possession_score": 75.41,
+              "physical_score": 88.46,
+              "total_minutes": 2879,
+              "player_name": "Jan Gomez"
+            }
+          ]
+        },
+        {
+          "position": "ST",
+          "eligible_bench_player_ids": [
+            "P0219",
+            "P0220"
+          ],
+          "ranked_candidates": [
+            {
+              "scenario": "balanced",
+              "player_id": "P0219",
+              "team_id": "T010",
+              "primary_position": "ST",
+              "suitability_score": 60.03,
+              "attacking_score": 75.25,
+              "passing_score": 52.88,
+              "defending_score": 39.21,
+              "possession_score": 69.08,
+              "physical_score": 63.7,
+              "total_minutes": 1845,
+              "player_name": "Benjamin Andersen"
+            },
+            {
+              "scenario": "balanced",
+              "player_id": "P0220",
+              "team_id": "T010",
+              "primary_position": "ST",
+              "suitability_score": 41.09,
+              "attacking_score": 78.12,
+              "passing_score": 22.04,
+              "defending_score": 28.37,
+              "possession_score": 64.15,
+              "physical_score": 12.78,
+              "total_minutes": 1406,
+              "player_name": "Mateo Silva"
+            }
+          ]
+        }
+      ],
+      "starter_similarity": [
+        {
+          "starter_player_id": "P0201",
+          "similar_players": [
+            {
+              "reference_player_id": "P0201",
+              "player_id": "P0268",
+              "comparison_position": "CB",
+              "similarity": 0.6824614075406,
+              "total_minutes": 3239,
+              "player_name": "Ivan Keller",
+              "team_id": "T013"
+            },
+            {
+              "reference_player_id": "P0201",
+              "player_id": "P0311",
+              "comparison_position": "CB",
+              "similarity": 0.6802971899229098,
+              "total_minutes": 5305,
+              "player_name": "Benjamin Dvorak",
+              "team_id": "T015"
+            },
+            {
+              "reference_player_id": "P0201",
+              "player_id": "P0091",
+              "comparison_position": "CB",
+              "similarity": 0.6356055007047853,
+              "total_minutes": 3634,
+              "player_name": "Oliver Novak",
+              "team_id": "T005"
+            }
+          ]
+        },
+        {
+          "starter_player_id": "P0203",
+          "similar_players": [
+            {
+              "reference_player_id": "P0203",
+              "player_id": "P0247",
+              "comparison_position": "CB",
+              "similarity": 0.7814404218911031,
+              "total_minutes": 4546,
+              "player_name": "Bruno Novak",
+              "team_id": "T012"
+            },
+            {
+              "reference_player_id": "P0203",
+              "player_id": "P0069",
+              "comparison_position": "CB",
+              "similarity": 0.7630877615770806,
+              "total_minutes": 5054,
+              "player_name": "Marco Novak",
+              "team_id": "T004"
+            },
+            {
+              "reference_player_id": "P0203",
+              "player_id": "P0028",
+              "comparison_position": "CB",
+              "similarity": 0.7169953224750195,
+              "total_minutes": 4194,
+              "player_name": "Viktor Andersen",
+              "team_id": "T002"
+            }
+          ]
+        },
+        {
+          "starter_player_id": "P0205",
+          "similar_players": [
+            {
+              "reference_player_id": "P0205",
+              "player_id": "P0098",
+              "comparison_position": "WB",
+              "similarity": 0.8114425096829173,
+              "total_minutes": 4229,
+              "player_name": "Thomas Vidal",
+              "team_id": "T005"
+            },
+            {
+              "reference_player_id": "P0205",
+              "player_id": "P0030",
+              "comparison_position": "WB",
+              "similarity": 0.7884510128387066,
+              "total_minutes": 5132,
+              "player_name": "Victor Ivanov",
+              "team_id": "T002"
+            },
+            {
+              "reference_player_id": "P0205",
+              "player_id": "P0337",
+              "comparison_position": "WB",
+              "similarity": 0.7497233723254048,
+              "total_minutes": 3927,
+              "player_name": "Mateo Novak",
+              "team_id": "T016"
+            }
+          ]
+        },
+        {
+          "starter_player_id": "P0207",
+          "similar_players": [
+            {
+              "reference_player_id": "P0207",
+              "player_id": "P0098",
+              "comparison_position": "WB",
+              "similarity": 0.8252907878810756,
+              "total_minutes": 4229,
+              "player_name": "Thomas Vidal",
+              "team_id": "T005"
+            },
+            {
+              "reference_player_id": "P0207",
+              "player_id": "P0030",
+              "comparison_position": "WB",
+              "similarity": 0.7876212399072042,
+              "total_minutes": 5132,
+              "player_name": "Victor Ivanov",
+              "team_id": "T002"
+            },
+            {
+              "reference_player_id": "P0207",
+              "player_id": "P0205",
+              "comparison_position": "WB",
+              "similarity": 0.7414331127187942,
+              "total_minutes": 5064,
+              "player_name": "Stefan Sokolov",
+              "team_id": "T010"
+            }
+          ]
+        },
+        {
+          "starter_player_id": "P0209",
+          "similar_players": [
+            {
+              "reference_player_id": "P0209",
+              "player_id": "P0365",
+              "comparison_position": "CM",
+              "similarity": 0.8144927353053981,
+              "total_minutes": 3461,
+              "player_name": "Oscar Horak",
+              "team_id": "T017"
+            },
+            {
+              "reference_player_id": "P0209",
+              "player_id": "P0102",
+              "comparison_position": "CM",
+              "similarity": 0.7988779298440285,
+              "total_minutes": 3935,
+              "player_name": "Viktor Fischer",
+              "team_id": "T005"
+            },
+            {
+              "reference_player_id": "P0209",
+              "player_id": "P0321",
+              "comparison_position": "CM",
+              "similarity": 0.7506215499371635,
+              "total_minutes": 3263,
+              "player_name": "Luka Sokolov",
+              "team_id": "T015"
+            }
+          ]
+        },
+        {
+          "starter_player_id": "P0210",
+          "similar_players": [
+            {
+              "reference_player_id": "P0210",
+              "player_id": "P0033",
+              "comparison_position": "CM",
+              "similarity": 0.861926385789906,
+              "total_minutes": 5415,
+              "player_name": "Nico Ortega",
+              "team_id": "T002"
+            },
+            {
+              "reference_player_id": "P0210",
+              "player_id": "P0430",
+              "comparison_position": "CM",
+              "similarity": 0.7478779747075858,
+              "total_minutes": 5637,
+              "player_name": "Martin Varga",
+              "team_id": "T020"
+            },
+            {
+              "reference_player_id": "P0210",
+              "player_id": "P0057",
+              "comparison_position": "CM",
+              "similarity": 0.6955887651125731,
+              "total_minutes": 5538,
+              "player_name": "Andrej Costa",
+              "team_id": "T003"
+            }
+          ]
+        },
+        {
+          "starter_player_id": "P0211",
+          "similar_players": [
+            {
+              "reference_player_id": "P0211",
+              "player_id": "P0298",
+              "comparison_position": "CM",
+              "similarity": 0.9403968706947305,
+              "total_minutes": 5362,
+              "player_name": "Theo Gomez",
+              "team_id": "T014"
+            },
+            {
+              "reference_player_id": "P0211",
+              "player_id": "P0429",
+              "comparison_position": "CM",
+              "similarity": 0.8304785799183625,
+              "total_minutes": 3856,
+              "player_name": "Thomas Rivera",
+              "team_id": "T020"
+            },
+            {
+              "reference_player_id": "P0211",
+              "player_id": "P0035",
+              "comparison_position": "CM",
+              "similarity": 0.814019990035271,
+              "total_minutes": 5258,
+              "player_name": "Viktor Kovac",
+              "team_id": "T002"
+            }
+          ]
+        },
+        {
+          "starter_player_id": "P0213",
+          "similar_players": [
+            {
+              "reference_player_id": "P0213",
+              "player_id": "P0346",
+              "comparison_position": "AMW",
+              "similarity": 0.8757350321017825,
+              "total_minutes": 2860,
+              "player_name": "Tomas Morales",
+              "team_id": "T016"
+            },
+            {
+              "reference_player_id": "P0213",
+              "player_id": "P0434",
+              "comparison_position": "AMW",
+              "similarity": 0.8121250876802442,
+              "total_minutes": 4098,
+              "player_name": "Emil Gomez",
+              "team_id": "T020"
+            },
+            {
+              "reference_player_id": "P0213",
+              "player_id": "P0216",
+              "comparison_position": "AMW",
+              "similarity": 0.7339682165320895,
+              "total_minutes": 2879,
+              "player_name": "Jan Gomez",
+              "team_id": "T010"
+            }
+          ]
+        },
+        {
+          "starter_player_id": "P0214",
+          "similar_players": [
+            {
+              "reference_player_id": "P0214",
+              "player_id": "P0390",
+              "comparison_position": "AMW",
+              "similarity": 0.8586342310057415,
+              "total_minutes": 4407,
+              "player_name": "Benjamin Horak",
+              "team_id": "T018"
+            },
+            {
+              "reference_player_id": "P0214",
+              "player_id": "P0325",
+              "comparison_position": "AMW",
+              "similarity": 0.7999278830564905,
+              "total_minutes": 2013,
+              "player_name": "Jonas Weber",
+              "team_id": "T015"
+            },
+            {
+              "reference_player_id": "P0214",
+              "player_id": "P0346",
+              "comparison_position": "AMW",
+              "similarity": 0.6983349155529555,
+              "total_minutes": 2860,
+              "player_name": "Tomas Morales",
+              "team_id": "T016"
+            }
+          ]
+        },
+        {
+          "starter_player_id": "P0218",
+          "similar_players": [
+            {
+              "reference_player_id": "P0218",
+              "player_id": "P0262",
+              "comparison_position": "ST",
+              "similarity": 0.6582052350183834,
+              "total_minutes": 1116,
+              "player_name": "Anton Bauer",
+              "team_id": "T012"
+            },
+            {
+              "reference_player_id": "P0218",
+              "player_id": "P0021",
+              "comparison_position": "ST",
+              "similarity": 0.4966798999631955,
+              "total_minutes": 4272,
+              "player_name": "Ivan Vasquez",
+              "team_id": "T001"
+            },
+            {
+              "reference_player_id": "P0218",
+              "player_id": "P0154",
+              "comparison_position": "ST",
+              "similarity": 0.4891528427040331,
+              "total_minutes": 2804,
+              "player_name": "Emil Eriksen",
+              "team_id": "T007"
+            }
+          ]
+        }
+      ],
+      "substitution_comparisons": [
+        {
+          "out_player_id": "P0214",
+          "in_player_id": "P0215",
+          "out_player_name": "Victor Wolf",
+          "in_player_name": "Benjamin Jensen",
+          "position": "AMW",
+          "scenario": "balanced",
+          "out_suitability": 64.95,
+          "in_suitability": 83.23,
+          "suitability_difference": 18.28,
+          "interpretation": "Higher historical scenario-relative suitability; not a predicted in-match performance gain."
+        },
+        {
+          "out_player_id": "P0214",
+          "in_player_id": "P0216",
+          "out_player_name": "Victor Wolf",
+          "in_player_name": "Jan Gomez",
+          "position": "AMW",
+          "scenario": "balanced",
+          "out_suitability": 64.95,
+          "in_suitability": 80.35,
+          "suitability_difference": 15.4,
+          "interpretation": "Higher historical scenario-relative suitability; not a predicted in-match performance gain."
+        },
+        {
+          "out_player_id": "P0213",
+          "in_player_id": "P0215",
+          "out_player_name": "Viktor Navarro",
+          "in_player_name": "Benjamin Jensen",
+          "position": "AMW",
+          "scenario": "balanced",
+          "out_suitability": 69.43,
+          "in_suitability": 83.23,
+          "suitability_difference": 13.8,
+          "interpretation": "Higher historical scenario-relative suitability; not a predicted in-match performance gain."
+        },
+        {
+          "out_player_id": "P0218",
+          "in_player_id": "P0219",
+          "out_player_name": "Max Wolf",
+          "in_player_name": "Benjamin Andersen",
+          "position": "ST",
+          "scenario": "balanced",
+          "out_suitability": 48.46,
+          "in_suitability": 60.03,
+          "suitability_difference": 11.57,
+          "interpretation": "Higher historical scenario-relative suitability; not a predicted in-match performance gain."
+        },
+        {
+          "out_player_id": "P0213",
+          "in_player_id": "P0216",
+          "out_player_name": "Viktor Navarro",
+          "in_player_name": "Jan Gomez",
+          "position": "AMW",
+          "scenario": "balanced",
+          "out_suitability": 69.43,
+          "in_suitability": 80.35,
+          "suitability_difference": 10.92,
+          "interpretation": "Higher historical scenario-relative suitability; not a predicted in-match performance gain."
+        },
+        {
+          "out_player_id": "P0209",
+          "in_player_id": "P0212",
+          "out_player_name": "Daniel Meyer",
+          "in_player_name": "Gabriel Jensen",
+          "position": "CM",
+          "scenario": "balanced",
+          "out_suitability": 48.99,
+          "in_suitability": 53.49,
+          "suitability_difference": 4.5,
+          "interpretation": "Higher historical scenario-relative suitability; not a predicted in-match performance gain."
+        }
+      ],
+      "note": "Rankings are historical position-relative scores, not win probabilities. Position-for-position options only; goalkeeper suggestions excluded."
+    }
+  },
+  "observed_events": [],
+  "evidence_provenance": {
+    "historical_cutoff_exclusive": "2026-02-28",
+    "excluded_match_id": "H20250287",
+    "historical_match_count": 660,
+    "player_profiles_recomputed_before_cutoff": true,
+    "phase_data_policy": "Only snapshot/event observations through current minute; passing and defending totals only from completed halves."
+  },
+  "ai_instructions": {
+    "grounding": "Use only this JSON. Never claim events not present in observed_events.",
+    "uncertainty": "Treat historical rates as descriptive, not forecasts.",
+    "recent_form_mapping": "For comparisons of the two featured teams, exclusively use team_recent_form.home.recent_form for the home team and team_recent_form.away.recent_form for the away team. historical_context.away_form is the home team's away-venue split, NOT the featured away team's form.",
+    "narrative_focus": "Preview team form, starting XI and available tactical options; do not mention score."
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "match_id": "H20250287",
+  "source": "historical_replay",
+  "selection_mode": "explicit",
+  "selection_seed": null,
+  "date": "2026-02-28T00:00:00",
+  "home_team_id": "T005",
+  "away_team_id": "T010",
+  "live_minute": 67,
+  "ht_score": [
+    1,
+    2
+  ],
+  "ft_score": [
+    3,
+    2
+  ]
+}

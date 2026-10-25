@@ -1,0 +1,278 @@
+[
+  {
+    "phase": "prematch",
+    "minute": 0,
+    "home_goals": 0,
+    "away_goals": 0,
+    "shots": {
+      "T005": {
+        "shots": 0,
+        "shots_on_target": 0,
+        "xg": 0.0,
+        "goals": 0
+      },
+      "T010": {
+        "shots": 0,
+        "shots_on_target": 0,
+        "xg": 0.0,
+        "goals": 0
+      }
+    },
+    "active_player_ids": {
+      "T005": [
+        "P0089",
+        "P0094",
+        "P0091",
+        "P0095",
+        "P0098",
+        "P0099",
+        "P0100",
+        "P0101",
+        "P0103",
+        "P0106",
+        "P0110"
+      ],
+      "T010": [
+        "P0199",
+        "P0201",
+        "P0203",
+        "P0207",
+        "P0205",
+        "P0209",
+        "P0210",
+        "P0211",
+        "P0213",
+        "P0214",
+        "P0218"
+      ]
+    },
+    "completed_half_stats": {
+      "T005": {
+        "passes_attempted": 0,
+        "passes_completed": 0,
+        "tackles": 0,
+        "interceptions": 0,
+        "recoveries": 0,
+        "corners": 0,
+        "complete_through_minute": 0
+      },
+      "T010": {
+        "passes_attempted": 0,
+        "passes_completed": 0,
+        "tackles": 0,
+        "interceptions": 0,
+        "recoveries": 0,
+        "corners": 0,
+        "complete_through_minute": 0
+      }
+    },
+    "note": "Pass/defensive totals shown only for completed halves; shot counts update live."
+  },
+  {
+    "phase": "halftime",
+    "minute": 45,
+    "home_goals": 1,
+    "away_goals": 2,
+    "shots": {
+      "T005": {
+        "shots": 5,
+        "shots_on_target": 4,
+        "xg": 0.149,
+        "goals": 1
+      },
+      "T010": {
+        "shots": 3,
+        "shots_on_target": 2,
+        "xg": 0.349,
+        "goals": 2
+      }
+    },
+    "active_player_ids": {
+      "T005": [
+        "P0089",
+        "P0094",
+        "P0091",
+        "P0095",
+        "P0098",
+        "P0099",
+        "P0100",
+        "P0101",
+        "P0103",
+        "P0106",
+        "P0110"
+      ],
+      "T010": [
+        "P0199",
+        "P0201",
+        "P0203",
+        "P0207",
+        "P0205",
+        "P0209",
+        "P0210",
+        "P0211",
+        "P0213",
+        "P0214",
+        "P0218"
+      ]
+    },
+    "completed_half_stats": {
+      "T005": {
+        "passes_attempted": 306,
+        "passes_completed": 259,
+        "tackles": 8,
+        "interceptions": 5,
+        "recoveries": 11,
+        "corners": 1,
+        "complete_through_minute": 45
+      },
+      "T010": {
+        "passes_attempted": 107,
+        "passes_completed": 84,
+        "tackles": 5,
+        "interceptions": 0,
+        "recoveries": 21,
+        "corners": 2,
+        "complete_through_minute": 45
+      }
+    },
+    "note": "Pass/defensive totals shown only for completed halves; shot counts update live."
+  },
+  {
+    "phase": "live",
+    "minute": 67,
+    "home_goals": 2,
+    "away_goals": 2,
+    "shots": {
+      "T005": {
+        "shots": 11,
+        "shots_on_target": 8,
+        "xg": 0.576,
+        "goals": 2
+      },
+      "T010": {
+        "shots": 5,
+        "shots_on_target": 3,
+        "xg": 0.713,
+        "goals": 2
+      }
+    },
+    "active_player_ids": {
+      "T005": [
+        "P0089",
+        "P0094",
+        "P0091",
+        "P0095",
+        "P0098",
+        "P0099",
+        "P0100",
+        "P0101",
+        "P0103",
+        "P0106",
+        "P0110"
+      ],
+      "T010": [
+        "P0199",
+        "P0201",
+        "P0203",
+        "P0207",
+        "P0205",
+        "P0209",
+        "P0210",
+        "P0211",
+        "P0213",
+        "P0214",
+        "P0218"
+      ]
+    },
+    "completed_half_stats": {
+      "T005": {
+        "passes_attempted": 306,
+        "passes_completed": 259,
+        "tackles": 8,
+        "interceptions": 5,
+        "recoveries": 11,
+        "corners": 1,
+        "complete_through_minute": 45
+      },
+      "T010": {
+        "passes_attempted": 107,
+        "passes_completed": 84,
+        "tackles": 5,
+        "interceptions": 0,
+        "recoveries": 21,
+        "corners": 2,
+        "complete_through_minute": 45
+      }
+    },
+    "note": "Pass/defensive totals shown only for completed halves; shot counts update live."
+  },
+  {
+    "phase": "postmatch",
+    "minute": 90,
+    "home_goals": 3,
+    "away_goals": 2,
+    "shots": {
+      "T005": {
+        "shots": 16,
+        "shots_on_target": 11,
+        "xg": 0.922,
+        "goals": 3
+      },
+      "T010": {
+        "shots": 9,
+        "shots_on_target": 5,
+        "xg": 0.983,
+        "goals": 2
+      }
+    },
+    "active_player_ids": {
+      "T005": [
+        "P0089",
+        "P0098",
+        "P0100",
+        "P0101",
+        "P0103",
+        "P0106",
+        "P0093",
+        "P0092",
+        "P0096",
+        "P0102",
+        "P0109"
+      ],
+      "T010": [
+        "P0199",
+        "P0201",
+        "P0203",
+        "P0205",
+        "P0210",
+        "P0211",
+        "P0214",
+        "P0218",
+        "P0212",
+        "P0217",
+        "P0208"
+      ]
+    },
+    "completed_half_stats": {
+      "T005": {
+        "passes_attempted": 559,
+        "passes_completed": 488,
+        "tackles": 17,
+        "interceptions": 8,
+        "recoveries": 19,
+        "corners": 3,
+        "complete_through_minute": 90
+      },
+      "T010": {
+        "passes_attempted": 212,
+        "passes_completed": 171,
+        "tackles": 10,
+        "interceptions": 5,
+        "recoveries": 36,
+        "corners": 3,
+        "complete_through_minute": 90
+      }
+    },
+    "note": "Pass/defensive totals shown only for completed halves; shot counts update live."
+  }
+]
