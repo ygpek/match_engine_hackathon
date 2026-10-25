@@ -15,6 +15,7 @@ from tactical_simulator import load_pre_match_profiles, evaluate_substitution
 from player_performance import load_player_history, player_profile, participation, METRICS
 from league_player_leaders import league_player_leaders
 from player_similarity_ui import similar_players, radar_profiles
+from win_probability_engine import predict, score_at
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent
@@ -1033,6 +1034,57 @@ if phase != "prematch":
     st.caption(f"Explore observed events through {replay_minute}′. "
                f"This {LABELS[phase].lower()} report contains no events after {phase_limit}′. "
                "AI analysis and tactical recommendations remain at the official phase snapshot.")
+
+
+# Historical-only predictive analytics, synchronized with replay minute.
+historical_path = ROOT / "data_generator" / "data" / "historical_matches.parquet"
+if historical_path.exists():
+    try:
+        history_matches = read_players(str(historical_path))
+        observed = payload.get("observed_events", [])
+        selected_minute = replay_minute if phase != "prematch" else 0
+        goals = score_at(observed, selected_minute, home_id, away_id)
+        prediction = predict(history_matches, fixture, selected_minute, *goals)
+        with st.container(border=True):
+            st.markdown("#### 📈 Match outcome probability")
+            cols = st.columns(3)
+            for col, title, key in zip(cols,
+                    [f"{home_name} win", "Draw", f"{away_name} win"],
+                    ["home_win", "draw", "away_win"]):
+                col.metric(title, f"{prediction[key]:.1%}")
+            st.caption(
+                f"Poisson forecast at {selected_minute}′ · Expected remaining goals: "
+                f"{home_name} {prediction['remaining_home_xg']:.2f}, "
+                f"{away_name} {prediction['remaining_away_xg']:.2f}"
+            )
+            with st.expander("Probability evolution and model details"):
+                minutes = sorted(set([0,selected_minute]+list(range(15,selected_minute+1,15))))
+                points = []
+                for m in minutes:
+                    gh,ga = score_at(observed,m,home_id,away_id)
+                    p = predict(history_matches,fixture,m,gh,ga)
+                    points.append((m,p))
+                fig = go.Figure()
+                for key,label,color in [
+                    ("home_win",home_name,HOME_COLOR),
+                    ("draw","Draw","#d6a23c"),
+                    ("away_win",away_name,AWAY_COLOR)]:
+                    fig.add_trace(go.Scatter(
+                        x=[m for m,_ in points],y=[100*p[key] for _,p in points],
+                        name=label,mode="lines+markers",line=dict(color=color)))
+                fig.update_layout(height=300,margin=dict(l=10,r=10,t=10,b=10),
+                    xaxis=dict(title="Match minute",range=[0,90]),
+                    yaxis=dict(title="Probability (%)",range=[0,100]))
+                st.plotly_chart(fig,use_container_width=True)
+                st.caption(
+                    "Goal rates estimated from historical matches strictly before kickoff; "
+                    "home/away attack and defence rates are smoothed toward league averages. "
+                    "Remaining goals follow independent Poisson distributions. "
+                    "The model responds to score and time, but not yet xG, cards or substitutions. "
+                    "Synthetic demonstration; probabilities are not externally calibrated."
+                )
+    except (ValueError, KeyError, TypeError, OSError) as exc:
+        st.warning(f"Outcome prediction unavailable: {exc}")
 
 tab_names = ["📊 Match statistics", "👥 Lineups", "👤 Player performance", "✨ AI analysis", "🏆 League standings and statistics", "📈 Form"]
 if phase in ("halftime", "live"):
