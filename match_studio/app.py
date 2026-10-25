@@ -284,16 +284,9 @@ def show_player_performance(payload, names, positions, home_name, away_name):
     if not team_players:
         st.info("No featured-match participants available.")
         return
-    # GK similarity is not supported; keep goalkeepers available for performance
-    # analysis, but select an outfield player (preferably CB) by default.
-    sorted_players = sorted(team_players, key=lambda x: player_sort_key(x, names, positions))
-    default_player = next((p for p in sorted_players if positions.get(p) == "CB"), None)
-    if default_player is None:
-        default_player = next((p for p in sorted_players if positions.get(p) != "GK"), sorted_players[0])
     player_id = st.selectbox(
         "Player",
-        sorted_players,
-        index=sorted_players.index(default_player),
+        sorted(team_players, key=lambda x: player_sort_key(x, names, positions)),
         format_func=lambda x: f'{names.get(x, x)} · {positions.get(x, "?")}',
         key=f"performance_player_{side}",
     )
@@ -652,26 +645,44 @@ def show_history(context, home_name, away_name):
     a, b = st.columns(2)
     with a:
         show_form(f"{home_name} · Recent form", context.get("recent_form"))
-        show_form("Home matches", context.get("home_form"))
     with b:
         show_form(f"{away_name} · Recent form", context.get("opponent_recent_form"))
-    patterns = context.get("halftime_patterns", {})
-    rows = []
-    for state, info in patterns.items():
-        if isinstance(info, dict) and info.get("sample_size"):
-            rows.append(
-                {
-                    "Halftime state": state.title(),
-                    "Matches": info["sample_size"],
-                    "W": info.get("full_time_wins", 0),
-                    "D": info.get("full_time_draws", 0),
-                    "L": info.get("full_time_losses", 0),
-                    "Win rate %": info.get("full_time_win_rate_pct"),
-                }
+
+    def halftime_rows(patterns):
+        rows = []
+        for state in ("leading", "level", "trailing"):
+            info = patterns.get(state)
+            if isinstance(info, dict) and info.get("sample_size"):
+                rows.append(
+                    {
+                        "Halftime state": state.title(),
+                        "Matches": info["sample_size"],
+                        "W": info.get("full_time_wins", 0),
+                        "D": info.get("full_time_draws", 0),
+                        "L": info.get("full_time_losses", 0),
+                        "Win rate %": info.get("full_time_win_rate_pct"),
+                    }
+                )
+        return rows
+
+    home_patterns = halftime_rows(context.get("halftime_patterns", {}))
+    away_patterns = halftime_rows(context.get("opponent_halftime_patterns", {}))
+    st.markdown("#### Historical halftime outcomes")
+    home_col, away_col = st.columns(2)
+    with home_col:
+        st.markdown(f"**{home_name}**")
+        if home_patterns:
+            st.dataframe(pd.DataFrame(home_patterns), hide_index=True, use_container_width=True)
+        else:
+            st.caption("No historical halftime outcomes available.")
+    with away_col:
+        st.markdown(f"**{away_name}**")
+        if away_patterns:
+            st.dataframe(pd.DataFrame(away_patterns), hide_index=True, use_container_width=True)
+        else:
+            st.caption(
+                "No historical halftime outcomes available. Regenerate orchestrator outputs if using an older JSON payload."
             )
-    if rows:
-        st.markdown("#### Historical halftime outcomes · Home team")
-        st.dataframe(pd.DataFrame(rows), hide_index=True, use_container_width=True)
     h2h = context.get("head_to_head", {})
     if h2h and h2h.get("sample_size"):
         st.markdown("#### Head-to-head · Home team perspective")

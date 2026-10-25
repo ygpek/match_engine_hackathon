@@ -142,6 +142,10 @@ def build_context(matches, teams, stats, team_id, opponent_id=None,
         other = view[view.team_id == opponent_id]
         h2h = selected[selected.opponent_id == opponent_id].tail(5)
         result['opponent_recent_form'] = recent_form(other, recent_n)
+        result['opponent_halftime_patterns'] = {
+            state: halftime_history(other, state, condition_n)
+            for state in ('leading', 'level', 'trailing')
+        }
         result['head_to_head'] = {
             'sample_size': len(h2h),
             'wins': int((h2h.result == 'W').sum()),
