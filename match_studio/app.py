@@ -28,6 +28,7 @@ POSITION_ORDER = {"GK": 0, "CB": 1, "WB": 2, "CM": 3, "AMW": 4, "CF": 5, "ST": 5
 def player_sort_key(pid, names, positions):
     return (POSITION_ORDER.get(positions.get(str(pid), ""), 99), names.get(str(pid), str(pid)).casefold())
 
+
 st.set_page_config(page_title="Match Studio AI", page_icon="⚽", layout="wide")
 st.markdown(
     """<style>
@@ -172,8 +173,13 @@ def show_tactical_simulator(payload, names, positions, home_name, away_name):
         format_func=lambda s: scenarios[s],
         key=f"sim_scenario_{side}",
     )
-    active = sorted((str(x) for x in section.get("active_player_ids", [])), key=lambda pid: player_sort_key(pid, names, positions))
-    bench = sorted((str(x) for x in section.get("available_bench_player_ids", [])), key=lambda pid: player_sort_key(pid, names, positions))
+    active = sorted(
+        (str(x) for x in section.get("active_player_ids", [])), key=lambda pid: player_sort_key(pid, names, positions)
+    )
+    bench = sorted(
+        (str(x) for x in section.get("available_bench_player_ids", [])),
+        key=lambda pid: player_sort_key(pid, names, positions),
+    )
     outfield = [pid for pid in active if positions.get(pid) not in (None, "GK")]
     if not outfield:
         st.info("No eligible outfield players in this phase.")
@@ -278,9 +284,16 @@ def show_player_performance(payload, names, positions, home_name, away_name):
     if not team_players:
         st.info("No featured-match participants available.")
         return
+    # GK similarity is not supported; keep goalkeepers available for performance
+    # analysis, but select an outfield player (preferably CB) by default.
+    sorted_players = sorted(team_players, key=lambda x: player_sort_key(x, names, positions))
+    default_player = next((p for p in sorted_players if positions.get(p) == "CB"), None)
+    if default_player is None:
+        default_player = next((p for p in sorted_players if positions.get(p) != "GK"), sorted_players[0])
     player_id = st.selectbox(
         "Player",
-        sorted(team_players, key=lambda x: player_sort_key(x, names, positions)),
+        sorted_players,
+        index=sorted_players.index(default_player),
         format_func=lambda x: f'{names.get(x, x)} · {positions.get(x, "?")}',
         key=f"performance_player_{side}",
     )
@@ -318,10 +331,11 @@ def show_player_performance(payload, names, positions, home_name, away_name):
         "are simulated performance observations, not evidence of current fatigue."
     )
     st.markdown("#### Similar players from other clubs")
-    top_n = st.select_slider("Number of similar players", options=[3, 5, 10, 15, 20], value=5,
-                             key="similar_top_n")
+    top_n = st.select_slider("Number of similar players", options=[3, 5, 10, 15, 20], value=5, key="similar_top_n")
     if positions.get(player_id) == "GK":
-        st.info("Goalkeeper similarity is unavailable: the historical data does not include the save and shot-stopping metrics needed for a meaningful comparison.")
+        st.info(
+            "Goalkeeper similarity is unavailable: the historical data does not include the save and shot-stopping metrics needed for a meaningful comparison."
+        )
     else:
         try:
             similar = similar_players(history, player_id, team_id, positions, names, top_n=top_n, last_n=sample)
@@ -341,12 +355,15 @@ def show_player_performance(payload, names, positions, home_name, away_name):
                 columns = ["Player", "Club", "Position", "Similarity (%)", "Matches", "Minutes"]
                 metric_columns = [m for m in metrics if m in similar.columns]
                 st.dataframe(similar[columns + metric_columns], hide_index=True, use_container_width=True)
-                st.caption("Similarity compares position-specific per-90 historical statistics over the selected recent appearances, using only matches before kickoff. Scores are relative statistical similarity, not performance ratings or predictions.")
+                st.caption(
+                    "Similarity compares position-specific per-90 historical statistics over the selected recent appearances, using only matches before kickoff. Scores are relative statistical similarity, not performance ratings or predictions."
+                )
 
                 st.markdown("#### Player comparison radar")
                 choices = similar.reset_index(drop=True)
                 chosen_idx = st.selectbox(
-                    "Compare with", range(len(choices)),
+                    "Compare with",
+                    range(len(choices)),
                     format_func=lambda i: f"{choices.iloc[i]['Player']} ({choices.iloc[i]['Club']})",
                     key="similar_radar_opponent",
                 )
@@ -362,21 +379,32 @@ def show_player_performance(payload, names, positions, home_name, away_name):
                         (names.get(player_id, player_id), "Reference percentile", "#16a085"),
                         (str(chosen["Player"]), "Comparison percentile", "#e67e22"),
                     ):
-                        fig.add_trace(go.Scatterpolar(
-                            r=radar[field].tolist() + [float(radar[field].iloc[0])],
-                            theta=labels + [labels[0]], fill="toself", name=label,
-                            line=dict(color=color), opacity=0.8,
-                        ))
+                        fig.add_trace(
+                            go.Scatterpolar(
+                                r=radar[field].tolist() + [float(radar[field].iloc[0])],
+                                theta=labels + [labels[0]],
+                                fill="toself",
+                                name=label,
+                                line=dict(color=color),
+                                opacity=0.8,
+                            )
+                        )
                     fig.update_layout(
                         polar=dict(radialaxis=dict(visible=True, range=[0, 100], ticksuffix="th")),
-                        showlegend=True, margin=dict(l=55, r=55, t=30, b=30),
+                        showlegend=True,
+                        margin=dict(l=55, r=55, t=30, b=30),
                         height=420,
                     )
                     st.plotly_chart(fig, use_container_width=True, key="player_similarity_radar")
-                    st.caption("Axes show percentile ranks (0–100) among same-position players with at least 180 historical minutes, using only pre-match data. Higher means more of that statistic, not necessarily better performance. These are not player ability ratings.")
+                    st.caption(
+                        "Axes show percentile ranks (0–100) among same-position players with at least 180 historical minutes, using only pre-match data. Higher means more of that statistic, not necessarily better performance. These are not player ability ratings."
+                    )
                     with st.expander("Compare original per-90 values"):
-                        st.dataframe(radar[["Metric", "Reference /90", "Comparison /90"]], hide_index=True, use_container_width=True)
-
+                        st.dataframe(
+                            radar[["Metric", "Reference /90", "Comparison /90"]],
+                            hide_index=True,
+                            use_container_width=True,
+                        )
 
 
 def render_report(report, phase):
@@ -581,7 +609,8 @@ def show_lineups(payload, home_name, away_name, home_id, away_id, names, positio
                         f"Substitution suitability difference: {top['suitability_difference']:+.2f}"
                     )
             dismissed_ids = {
-                str(event.get("player_id")) for event in payload.get("observed_events", [])
+                str(event.get("player_id"))
+                for event in payload.get("observed_events", [])
                 if event.get("event_type") in ("red_card", "second_yellow_red")
                 and str(event.get("team_id")) == str(tid)
             }
@@ -670,9 +699,11 @@ def historical_files(data_dir):
 def replay_view(payload, minute, home_id, away_id):
     """Derive UI-only state from phase-visible events, never from future match data."""
     import copy
+
     view = copy.deepcopy(payload)
-    events = [e for e in payload.get("observed_events", [])
-              if isinstance(e, dict) and int(e.get("minute") or 0) <= minute]
+    events = [
+        e for e in payload.get("observed_events", []) if isinstance(e, dict) and int(e.get("minute") or 0) <= minute
+    ]
     view["observed_events"] = events
     original = payload.get("state", {})
     state = copy.deepcopy(original)
@@ -701,9 +732,18 @@ def replay_view(payload, minute, home_id, away_id):
             aggregates = {}
             for tid in (home_id, away_id):
                 sub = first[first.team_id.astype(str) == tid]
-                aggregates[tid] = {k: int(pd.to_numeric(sub[k], errors="coerce").fillna(0).sum())
-                                   for k in ("passes_attempted", "passes_completed", "tackles",
-                                             "interceptions", "recoveries", "corners") if k in sub}
+                aggregates[tid] = {
+                    k: int(pd.to_numeric(sub[k], errors="coerce").fillna(0).sum())
+                    for k in (
+                        "passes_attempted",
+                        "passes_completed",
+                        "tackles",
+                        "interceptions",
+                        "recoveries",
+                        "corners",
+                    )
+                    if k in sub
+                }
                 aggregates[tid]["complete_through_minute"] = 45
             state["completed_half_stats"] = aggregates
         else:
@@ -717,9 +757,10 @@ def replay_view(payload, minute, home_id, away_id):
         if minute == 0:
             active = lineups[lineups.started.astype(bool)]
         else:
-            active = lineups[(lineups.minute_on <= minute) &
-                             ((lineups.minute_off > minute) |
-                              ((minute == 90) & (lineups.minute_off == 90)))]
+            active = lineups[
+                (lineups.minute_on <= minute)
+                & ((lineups.minute_off > minute) | ((minute == 90) & (lineups.minute_off == 90)))
+            ]
         state["active_player_ids"] = {
             tid: active.loc[active.team_id.astype(str) == tid, "player_id"].astype(str).tolist()
             for tid in (home_id, away_id)
@@ -734,16 +775,20 @@ def show_league_position_impact(payload):
         return
     league = payload.get("league_expectations") or {}
     sides = league.get("teams") or {}
-    if not all(isinstance(sides.get(side), dict) and
-               isinstance(sides[side].get("before_match"), dict) and
-               isinstance(sides[side].get("after_match"), dict)
-               for side in ("home", "away")):
+    if not all(
+        isinstance(sides.get(side), dict)
+        and isinstance(sides[side].get("before_match"), dict)
+        and isinstance(sides[side].get("after_match"), dict)
+        for side in ("home", "away")
+    ):
         st.info("League position impact is unavailable for this fixture.")
         return
 
     st.markdown("#### League position impact")
-    st.caption("Positions and points immediately before and after the featured match. "
-               "Only this match is added; other fixtures played on the same date are excluded.")
+    st.caption(
+        "Positions and points immediately before and after the featured match. "
+        "Only this match is added; other fixtures played on the same date are excluded."
+    )
     cols = st.columns(2)
     for side, col in zip(("home", "away"), cols):
         item = sides[side]
@@ -760,9 +805,11 @@ def show_league_position_impact(payload):
         with col:
             st.markdown(f"**{item.get('team_name', side.title())}**")
             st.metric("League position", f"{new_pos}", delta=movement, delta_color="off")
-            st.caption(f"Position: {old_pos} → {new_pos}  ·  Points: {old_pts} → {new_pts} "
-                       f"({new_pts-old_pts:+d})  ·  Goal difference: "
-                       f"{int(before['goal_difference']):+d} → {int(after['goal_difference']):+d}")
+            st.caption(
+                f"Position: {old_pos} → {new_pos}  ·  Points: {old_pts} → {new_pts} "
+                f"({new_pts-old_pts:+d})  ·  Goal difference: "
+                f"{int(before['goal_difference']):+d} → {int(after['goal_difference']):+d}"
+            )
     st.divider()
 
 
@@ -817,9 +864,7 @@ def show_league_player_leaders(payload, phase):
     fixture = payload["fixture"]
     featured_ids = {str(fixture["home_team_id"]), str(fixture["away_team_id"])}
     teams = pd.read_parquet(ROOT / "data_generator" / "data" / "teams.parquet")
-    featured_clubs = set(
-        teams.loc[teams.team_id.astype(str).isin(featured_ids), "team_name"].astype(str)
-    )
+    featured_clubs = set(teams.loc[teams.team_id.astype(str).isin(featured_ids), "team_name"].astype(str))
 
     def highlight_featured_player(row):
         if str(row["Club"]) in featured_clubs:
@@ -998,7 +1043,8 @@ right.markdown(f"<h3 style='text-align:right'>{away_name}</h3>", unsafe_allow_ht
 # Some historical replays do not attribute shots to players; do not invent names.
 if phase != "prematch":
     goal_events = [
-        event for event in replay_payload.get("observed_events", [])
+        event
+        for event in replay_payload.get("observed_events", [])
         if isinstance(event, dict) and event.get("event_type") == "goal"
     ]
     goal_events.sort(key=lambda event: (int(event.get("minute") or 0), int(event.get("second") or 0)))
@@ -1020,20 +1066,27 @@ if phase != "prematch":
     if home_scorers or away_scorers:
         with center:
             for item in home_scorers:
-                st.markdown(f"<div style='text-align:center;font-size:.83rem'>⚽ {item} ({home_name})</div>", unsafe_allow_html=True)
+                st.markdown(
+                    f"<div style='text-align:center;font-size:.83rem'>⚽ {item} ({home_name})</div>",
+                    unsafe_allow_html=True,
+                )
             for item in away_scorers:
-                st.markdown(f"<div style='text-align:center;font-size:.83rem'>⚽ {item} ({away_name})</div>", unsafe_allow_html=True)
+                st.markdown(
+                    f"<div style='text-align:center;font-size:.83rem'>⚽ {item} ({away_name})</div>",
+                    unsafe_allow_html=True,
+                )
 
 
 # Replay controls sit beneath the score and goalscorers, above the tabs.
 if phase != "prematch":
     st.markdown("#### Interactive match replay")
     if phase_limit:
-        st.slider("Replay minute", min_value=0, max_value=phase_limit,
-                  value=phase_limit, step=1, key=f"replay_{phase}")
-    st.caption(f"Explore observed events through {replay_minute}′. "
-               f"This {LABELS[phase].lower()} report contains no events after {phase_limit}′. "
-               "AI analysis and tactical recommendations remain at the official phase snapshot.")
+        st.slider("Replay minute", min_value=0, max_value=phase_limit, value=phase_limit, step=1, key=f"replay_{phase}")
+    st.caption(
+        f"Explore observed events through {replay_minute}′. "
+        f"This {LABELS[phase].lower()} report contains no events after {phase_limit}′. "
+        "AI analysis and tactical recommendations remain at the official phase snapshot."
+    )
 
 
 # Historical-only predictive analytics, synchronized with replay minute.
@@ -1048,9 +1101,9 @@ if historical_path.exists():
         with st.container(border=True):
             st.markdown("#### 📈 Match outcome probability")
             cols = st.columns(3)
-            for col, title, key in zip(cols,
-                    [f"{home_name} win", "Draw", f"{away_name} win"],
-                    ["home_win", "draw", "away_win"]):
+            for col, title, key in zip(
+                cols, [f"{home_name} win", "Draw", f"{away_name} win"], ["home_win", "draw", "away_win"]
+            ):
                 col.metric(title, f"{prediction[key]:.1%}")
             st.caption(
                 f"Poisson forecast at {selected_minute}′ · Expected remaining goals: "
@@ -1058,24 +1111,34 @@ if historical_path.exists():
                 f"{away_name} {prediction['remaining_away_xg']:.2f}"
             )
             with st.expander("Probability evolution and model details"):
-                minutes = sorted(set([0,selected_minute]+list(range(15,selected_minute+1,15))))
+                minutes = sorted(set([0, selected_minute] + list(range(15, selected_minute + 1, 15))))
                 points = []
                 for m in minutes:
-                    gh,ga = score_at(observed,m,home_id,away_id)
-                    p = predict(history_matches,fixture,m,gh,ga)
-                    points.append((m,p))
+                    gh, ga = score_at(observed, m, home_id, away_id)
+                    p = predict(history_matches, fixture, m, gh, ga)
+                    points.append((m, p))
                 fig = go.Figure()
-                for key,label,color in [
-                    ("home_win",home_name,HOME_COLOR),
-                    ("draw","Draw","#d6a23c"),
-                    ("away_win",away_name,AWAY_COLOR)]:
-                    fig.add_trace(go.Scatter(
-                        x=[m for m,_ in points],y=[100*p[key] for _,p in points],
-                        name=label,mode="lines+markers",line=dict(color=color)))
-                fig.update_layout(height=300,margin=dict(l=10,r=10,t=10,b=10),
-                    xaxis=dict(title="Match minute",range=[0,90]),
-                    yaxis=dict(title="Probability (%)",range=[0,100]))
-                st.plotly_chart(fig,use_container_width=True)
+                for key, label, color in [
+                    ("home_win", home_name, HOME_COLOR),
+                    ("draw", "Draw", "#d6a23c"),
+                    ("away_win", away_name, AWAY_COLOR),
+                ]:
+                    fig.add_trace(
+                        go.Scatter(
+                            x=[m for m, _ in points],
+                            y=[100 * p[key] for _, p in points],
+                            name=label,
+                            mode="lines+markers",
+                            line=dict(color=color),
+                        )
+                    )
+                fig.update_layout(
+                    height=300,
+                    margin=dict(l=10, r=10, t=10, b=10),
+                    xaxis=dict(title="Match minute", range=[0, 90]),
+                    yaxis=dict(title="Probability (%)", range=[0, 100]),
+                )
+                st.plotly_chart(fig, use_container_width=True)
                 st.caption(
                     "Goal rates estimated from historical matches strictly before kickoff; "
                     "home/away attack and defence rates are smoothed toward league averages. "
@@ -1086,7 +1149,14 @@ if historical_path.exists():
     except (ValueError, KeyError, TypeError, OSError) as exc:
         st.warning(f"Outcome prediction unavailable: {exc}")
 
-tab_names = ["📊 Match statistics", "👥 Lineups", "👤 Player performance", "✨ AI analysis", "🏆 League standings and statistics", "📈 Form"]
+tab_names = [
+    "📊 Match statistics",
+    "👥 Lineups",
+    "👤 Player performance",
+    "✨ AI analysis",
+    "🏆 League standings and statistics",
+    "📈 Form",
+]
 if phase in ("halftime", "live"):
     tab_names.insert(4, "🔁 Substitution candidates")
 tabs = st.tabs(tab_names)
@@ -1137,28 +1207,47 @@ with stats_tab:
                 shots["xg"] = pd.to_numeric(shots.get("xg", 0), errors="coerce").fillna(0)
                 fig = go.Figure()
                 for team, color in [(home_name, HOME_COLOR), (away_name, AWAY_COLOR)]:
-                    subset = shots[shots.team == team].sort_values(["minute", "second"] if "second" in shots.columns else ["minute"]).copy()
+                    subset = (
+                        shots[shots.team == team]
+                        .sort_values(["minute", "second"] if "second" in shots.columns else ["minute"])
+                        .copy()
+                    )
                     if subset.empty:
                         continue
                     subset["cumulative_xg"] = subset.xg.cumsum()
                     # Goals retain their true position on the cumulative-xG curve.
-                    fig.add_trace(go.Scatter(
-                        x=subset.minute, y=subset.cumulative_xg,
-                        mode="lines+markers", name=team,
-                        line=dict(color=color),
-                        marker=dict(size=7),
-                        customdata=subset.event_type,
-                        hovertemplate="%{x}′ · Cumulative xG %{y:.2f}<br>%{customdata}<extra></extra>",
-                    ))
+                    fig.add_trace(
+                        go.Scatter(
+                            x=subset.minute,
+                            y=subset.cumulative_xg,
+                            mode="lines+markers",
+                            name=team,
+                            line=dict(color=color),
+                            marker=dict(size=7),
+                            customdata=subset.event_type,
+                            hovertemplate="%{x}′ · Cumulative xG %{y:.2f}<br>%{customdata}<extra></extra>",
+                        )
+                    )
                     goals = subset[subset.event_type == "goal"]
                     if not goals.empty:
-                        fig.add_trace(go.Scatter(
-                            x=goals.minute, y=goals.cumulative_xg,
-                            mode="markers", name=f"{team} goals",
-                            marker=dict(size=17, color=color, symbol="star", line=dict(color="white", width=2)),
-                            customdata=[player_names.get(str(pid), "Scorer unavailable") if pd.notna(pid) else "Scorer unavailable" for pid in goals.get("player_id", pd.Series([None] * len(goals), index=goals.index))],
-                            hovertemplate="GOAL · %{x}′<br>%{customdata}<br>Cumulative xG %{y:.2f}<extra></extra>",
-                        ))
+                        fig.add_trace(
+                            go.Scatter(
+                                x=goals.minute,
+                                y=goals.cumulative_xg,
+                                mode="markers",
+                                name=f"{team} goals",
+                                marker=dict(size=17, color=color, symbol="star", line=dict(color="white", width=2)),
+                                customdata=[
+                                    (
+                                        player_names.get(str(pid), "Scorer unavailable")
+                                        if pd.notna(pid)
+                                        else "Scorer unavailable"
+                                    )
+                                    for pid in goals.get("player_id", pd.Series([None] * len(goals), index=goals.index))
+                                ],
+                                hovertemplate="GOAL · %{x}′<br>%{customdata}<br>Cumulative xG %{y:.2f}<extra></extra>",
+                            )
+                        )
                 fig.update_layout(
                     height=340, margin=dict(l=20, r=20, t=20, b=20), xaxis_title="Minute", yaxis_title="Cumulative xG"
                 )
@@ -1183,14 +1272,18 @@ with stats_tab:
             else:
                 event_table["Player"] = "Not attributed"
             if "team_id" in event_table.columns:
-                event_table["Team"] = event_table["team_id"].astype(str).map(
-                    {home_id: home_name, away_id: away_name}
-                ).fillna("Unknown")
+                event_table["Team"] = (
+                    event_table["team_id"].astype(str).map({home_id: home_name, away_id: away_name}).fillna("Unknown")
+                )
             else:
                 event_table["Team"] = "Unknown"
             event_table["Event"] = event_table["event_type"].astype(str).str.replace("_", " ").str.title()
-            display = [c for c in ("minute", "Team", "Event", "Player", "description", "xg") if c in event_table.columns]
-            event_table = event_table[display].rename(columns={"minute": "Minute", "description": "Description", "xg": "xG"})
+            display = [
+                c for c in ("minute", "Team", "Event", "Player", "description", "xg") if c in event_table.columns
+            ]
+            event_table = event_table[display].rename(
+                columns={"minute": "Minute", "description": "Description", "xg": "xG"}
+            )
             st.dataframe(event_table.sort_values("Minute", ascending=False), hide_index=True, use_container_width=True)
 
 with analysis_tab:
