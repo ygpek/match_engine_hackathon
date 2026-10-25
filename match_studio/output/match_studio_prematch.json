@@ -389,6 +389,90 @@
         "H20250278"
       ]
     },
+    "opponent_halftime_patterns": {
+      "leading": {
+        "halftime_state": "leading",
+        "sample_size": 20,
+        "full_time_wins": 17,
+        "full_time_draws": 3,
+        "full_time_losses": 0,
+        "full_time_win_rate_pct": 85.0,
+        "source_match_ids": [
+          "H20240303",
+          "H20240312",
+          "H20240343",
+          "H20240365",
+          "H20250005",
+          "H20250016",
+          "H20250027",
+          "H20250038",
+          "H20250049",
+          "H20250070",
+          "H20250079",
+          "H20250106",
+          "H20250124",
+          "H20250142",
+          "H20250151",
+          "H20250184",
+          "H20250206",
+          "H20250228",
+          "H20250250",
+          "H20250260"
+        ]
+      },
+      "level": {
+        "halftime_state": "level",
+        "sample_size": 20,
+        "full_time_wins": 10,
+        "full_time_draws": 7,
+        "full_time_losses": 3,
+        "full_time_win_rate_pct": 50.0,
+        "source_match_ids": [
+          "H20240077",
+          "H20240095",
+          "H20240113",
+          "H20240122",
+          "H20240175",
+          "H20240208",
+          "H20240240",
+          "H20240258",
+          "H20240267",
+          "H20240332",
+          "H20240354",
+          "H20240376",
+          "H20250060",
+          "H20250088",
+          "H20250097",
+          "H20250115",
+          "H20250133",
+          "H20250162",
+          "H20250173",
+          "H20250239"
+        ]
+      },
+      "trailing": {
+        "halftime_state": "trailing",
+        "sample_size": 12,
+        "full_time_wins": 1,
+        "full_time_draws": 5,
+        "full_time_losses": 6,
+        "full_time_win_rate_pct": 8.3,
+        "source_match_ids": [
+          "H20240018",
+          "H20240029",
+          "H20240059",
+          "H20240068",
+          "H20240142",
+          "H20240186",
+          "H20240197",
+          "H20240321",
+          "H20250195",
+          "H20250217",
+          "H20250269",
+          "H20250278"
+        ]
+      }
+    },
     "head_to_head": {
       "sample_size": 3,
       "wins": 1,
