@@ -1,4 +1,108 @@
 {
+  "player_storylines": {
+    "phase": "postmatch",
+    "season_id": "2025-26",
+    "historical_cutoff_exclusive": "2026-02-28",
+    "stories": [
+      {
+        "player_id": "P0090",
+        "player_name": "Leo Miller",
+        "team_id": "T005",
+        "position": "GK",
+        "phase": "postmatch",
+        "type": "goalkeeper_clean_sheets",
+        "priority": 76,
+        "evidence": {
+          "clean_sheets_last_5_appearances": 4,
+          "appearances_considered": 5,
+          "consecutive_clean_sheets": 3,
+          "minimum_minutes_for_credit": 60
+        },
+        "related_storylines": []
+      },
+      {
+        "player_id": "P0100",
+        "player_name": "Simon Rossi",
+        "team_id": "T005",
+        "position": "CM",
+        "phase": "postmatch",
+        "type": "creative_playmaker",
+        "priority": 70,
+        "evidence": {
+          "season_assists": 9,
+          "last_5_assists": 1
+        },
+        "related_storylines": []
+      },
+      {
+        "player_id": "P0103",
+        "player_name": "Oliver Vega",
+        "team_id": "T005",
+        "position": "AMW",
+        "phase": "postmatch",
+        "type": "scoring_streak",
+        "priority": 68,
+        "evidence": {
+          "consecutive_scoring_appearances": 3,
+          "goals_in_streak": 5
+        },
+        "related_storylines": [
+          {
+            "type": "creative_playmaker",
+            "evidence": {
+              "season_assists": 4,
+              "last_5_assists": 1
+            }
+          }
+        ]
+      },
+      {
+        "player_id": "P0220",
+        "player_name": "Mateo Silva",
+        "team_id": "T010",
+        "position": "ST",
+        "phase": "postmatch",
+        "type": "scoring_streak",
+        "priority": 80,
+        "evidence": {
+          "consecutive_scoring_appearances": 5,
+          "goals_in_streak": 9
+        },
+        "related_storylines": []
+      },
+      {
+        "player_id": "P0217",
+        "player_name": "Liam Davis",
+        "team_id": "T010",
+        "position": "AMW",
+        "phase": "postmatch",
+        "type": "return_from_absence",
+        "priority": 73,
+        "evidence": {
+          "consecutive_team_matches_missed": 7,
+          "minutes_on_return": 8,
+          "absence_reason": "unknown"
+        },
+        "related_storylines": []
+      },
+      {
+        "player_id": "P0210",
+        "player_name": "Kevin Garcia",
+        "team_id": "T010",
+        "position": "CM",
+        "phase": "postmatch",
+        "type": "creative_playmaker",
+        "priority": 70,
+        "evidence": {
+          "season_assists": 12,
+          "last_5_assists": 3
+        },
+        "related_storylines": []
+      }
+    ],
+    "candidate_count": 26,
+    "note": "Only recorded appearances; absences are not identified as injuries. GK clean sheets use full-match team goals conceded and at least 60 minutes."
+  },
   "individual_performance_review": {
     "available": true,
     "player_of_the_match": {

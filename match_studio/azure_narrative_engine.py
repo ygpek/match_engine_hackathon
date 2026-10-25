@@ -110,6 +110,34 @@ League expectations instructions (PREMATCH and POSTMATCH only):
 - When league_expectations is absent, omit this analysis rather than fabricate positions.
 - Keep the existing JSON report schema: place this named analysis in key_insights, not a new top-level key.
 
+Player storylines (PREMATCH and POSTMATCH only):
+- The player_storylines.stories array contains precomputed, selected evidence-based
+  player stories. Use these as candidate editorial highlights, not as mandatory copy.
+- Include one or two relevant player-focused insights when nonempty stories provide
+  useful context. Prefer distinct players and both teams where meaningful; do not
+  force a story when the evidence is weak or another major match event matters more.
+- Cite specific player_storylines.stories[index].evidence fields and the associated
+  player_name in evidence_paths. Never invent rankings, goals, appearances or streaks.
+- A golden_boot_race ranking refers to the supplied season and cutoff only. Do not
+  call a player the outright leader when tied; use the tied_leaders evidence.
+- Scoring streaks and goal droughts are consecutive recorded player APPEARANCES,
+  not consecutive team fixtures. For droughts, avoid calling a player out of form
+  solely because of goals; describe only the measured scoring drought.
+- Goalkeeper clean sheets require the stated minimum minutes. Do not attribute a
+  team clean sheet to an individual goalkeeper without the supplied evidence.
+- Return_from_absence means a recorded gap in appearances, NOT a confirmed injury.
+  NEVER say a player was injured, recovered, rehabilitated, or medically cleared
+  unless explicit independent injury evidence exists (none is supplied here).
+- For postmatch, the storyline figures already include the featured fixture when
+  available. Do NOT say a streak was extended, ended or broken, or that a ranking
+  changed, unless both pre- and post-match values explicitly support that comparison.
+  Do not infer featured-match goalscorers from player_storylines: goal_summary is
+  the sole authority for named scorers, even when a storyline goal total increased.
+- Do not confuse player_storylines historical/seasonal figures with individual
+  performance in the featured match. If no stories are present, omit them.
+- Keep the existing JSON schema and balance storyline coverage with tactical,
+  disciplinary, league and match-result analysis.
+
 Return ONLY a valid JSON object with exactly these top-level keys:
   headline (string), overview (string), key_insights (array of objects with
   text and evidence_paths), tactical_options (array of objects with text and
@@ -130,17 +158,25 @@ def build_messages(payload: dict, language: str) -> list[dict]:
     if phase in ("prematch", "postmatch") and "league_expectations" in payload:
         focus += " Include a League Expectations & Performance insight for BOTH teams with actual vs category-based expected positions."
 
+    if phase in ("prematch", "postmatch"):
+        storyline_data = payload.get("player_storylines") or {}
+        stories = storyline_data.get("stories", []) if isinstance(storyline_data, dict) else []
+        if stories:
+            focus += (
+                " Consider one or two notable player storylines from player_storylines.stories, "
+                "using exact evidence and names; do not force every storyline into the report. "
+                "Never infer an injury from absence or a featured-match scorer from season totals."
+            )
+
     goals = payload.get("goal_summary", {})
-    if phase != "prematch" and any(
-        side.get("goal_count", 0) for side in goals.values() if isinstance(side, dict)
-    ):
+    if phase != "prematch" and any(side.get("goal_count", 0) for side in goals.values() if isinstance(side, dict)):
         focus += " Name featured-match scorers only from goal_summary, never from historical player records or awards."
 
     discipline = payload.get("disciplinary_summary", {})
-    if phase != "prematch" and any(
-        team.get("bookings") for team in discipline.values() if isinstance(team, dict)
-    ):
-        focus += " Explain important observed cautions or dismissals by player name and minute, without inventing causality."
+    if phase != "prematch" and any(team.get("bookings") for team in discipline.values() if isinstance(team, dict)):
+        focus += (
+            " Explain important observed cautions or dismissals by player name and minute, without inventing causality."
+        )
 
     valid_paths = collect_evidence_paths(payload)
     request = {
@@ -259,10 +295,13 @@ def check_narrative_language(report):
     """Reject obvious technical tokens; semantic claims still need human review."""
     strings = [report["headline"], report["overview"], *report["uncertainty"]]
     strings += [item["text"] for section in ("key_insights", "tactical_options") for item in report[section]]
-    bad = re.compile(r"\b(?:player_id|team_id|match_id|state\.[A-Za-z_]|historical_context|"
-                     r"tactical_analysis|suitability_score|evidence_paths|"
-                     r"opponent_recent_form|team_recent_form|league_expectations|"
-                     r"[A-Z]\d{3}_P\d{2,})\b", re.IGNORECASE)
+    bad = re.compile(
+        r"\b(?:player_id|team_id|match_id|state\.[A-Za-z_]|historical_context|"
+        r"tactical_analysis|suitability_score|evidence_paths|"
+        r"opponent_recent_form|team_recent_form|league_expectations|"
+        r"[A-Z]\d{3}_P\d{2,})\b",
+        re.IGNORECASE,
+    )
     return [s[:180] for s in strings if bad.search(s)]
 
 
@@ -341,13 +380,16 @@ def main():
             # Ask once for a corrected report; never silently discard invalid citations.
             correction_messages = messages + [
                 {"role": "assistant", "content": json.dumps(report, ensure_ascii=False)},
-                {"role": "user", "content": (
-                    "Your report includes invalid evidence paths: "
-                    + json.dumps(invalid, ensure_ascii=False)
-                    + ". Return the COMPLETE corrected JSON report, preserving its schema. "
-                    "Use only paths from valid_evidence_paths in the original request. "
-                    "Remove any unsupported claims rather than inventing evidence."
-                )},
+                {
+                    "role": "user",
+                    "content": (
+                        "Your report includes invalid evidence paths: "
+                        + json.dumps(invalid, ensure_ascii=False)
+                        + ". Return the COMPLETE corrected JSON report, preserving its schema. "
+                        "Use only paths from valid_evidence_paths in the original request. "
+                        "Remove any unsupported claims rather than inventing evidence."
+                    ),
+                },
             ]
             retry = client.chat.completions.create(
                 model=os.environ["AZURE_OPENAI_DEPLOYMENT"],
@@ -359,22 +401,25 @@ def main():
             invalid = verify_paths(report, payload)
             if invalid:
                 raise ValueError(
-                    f"Azure returned unresolvable evidence pointers for {phase} "
-                    f"even after correction: {invalid}"
+                    f"Azure returned unresolvable evidence pointers for {phase} " f"even after correction: {invalid}"
                 )
         language_issues = check_narrative_language(report)
         if language_issues:
             correction_messages = messages + [
                 {"role": "assistant", "content": json.dumps(report, ensure_ascii=False)},
-                {"role": "user", "content": (
-                    "Rewrite the COMPLETE JSON report with the SAME schema and VALID evidence_paths. "
-                    "The user-visible narrative still contains technical language: "
-                    + json.dumps(language_issues, ensure_ascii=False)
-                    + ". Remove all technical tokens from narrative text. Keep evidence paths only in evidence_paths."
-                )},
+                {
+                    "role": "user",
+                    "content": (
+                        "Rewrite the COMPLETE JSON report with the SAME schema and VALID evidence_paths. "
+                        "The user-visible narrative still contains technical language: "
+                        + json.dumps(language_issues, ensure_ascii=False)
+                        + ". Remove all technical tokens from narrative text. Keep evidence paths only in evidence_paths."
+                    ),
+                },
             ]
             retry = client.chat.completions.create(
-                model=os.environ["AZURE_OPENAI_DEPLOYMENT"], messages=correction_messages,
+                model=os.environ["AZURE_OPENAI_DEPLOYMENT"],
+                messages=correction_messages,
                 response_format={"type": "json_object"},
             )
             report = parse_response(retry.choices[0].message.content)

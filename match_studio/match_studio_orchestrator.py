@@ -278,6 +278,7 @@ def assemble(
     recent_n,
     top_n,
     scenario,
+    storylines_engine,
 ):
     snap = next((s for s in snapshots if s["phase"] == phase), None)
     if snap is None:
@@ -331,14 +332,30 @@ def assemble(
     event_cols = [c for c in event_cols if c in visible.columns]
     league_expectations = (
         build_league_expectations(all_matches, teams, team_profiles, metadata, snap, phase)
-        if phase in ("prematch", "postmatch") else None
+        if phase in ("prematch", "postmatch")
+        else None
     )
     individual_review = (
         evaluate_player_match(featured_player_stats, players, fixture=metadata, lineups=lineups)
-        if phase == "postmatch" else None
+        if phase == "postmatch"
+        else None
+    )
+    player_storylines = (
+        storylines_engine.build_storylines(
+            all_matches,
+            player_match_stats,
+            players,
+            metadata,
+            featured_stats=featured_player_stats,
+            lineups=lineups,
+            phase=phase,
+        )
+        if phase in ("prematch", "postmatch")
+        else None
     )
     return json_safe(
         {
+            "player_storylines": player_storylines,
             "individual_performance_review": individual_review,
             "schema_version": "1.0",
             "phase": phase,
@@ -395,6 +412,7 @@ def main():
     context_engine = load_module("context_engine", ROOT / "engines" / "historical_context_engine.py")
     sim_engine = load_module("sim_engine", ROOT / "engines" / "player_similarity_engine.py")
     suitability = load_module("suitability_engine", ROOT / "engines" / "tactical_suitability_engine.py")
+    storylines_engine = load_module("storylines_engine", ROOT / "engines" / "player_storylines_engine.py")
     metadata = json.loads((FEATURED_DATA / "featured_match.json").read_text(encoding="utf-8"))
     snapshots = json.loads((FEATURED_DATA / "featured_match_snapshots.json").read_text(encoding="utf-8"))
     matches = read_parquet(HIST_DATA / "historical_matches.parquet")
@@ -408,7 +426,7 @@ def main():
     eligible_matches, cutoff = cutoff_data(matches, metadata)
     if eligible_matches.empty:
         print("WARNING: No historical matches predate the featured fixture; historical context will be empty.")
-    team_profiles = read_parquet(HIST_DATA/'team_profiles.parquet')
+    team_profiles = read_parquet(HIST_DATA / "team_profiles.parquet")
     profiles, appearance_count = build_asof_profiles(player_match_stats, eligible_matches, players, sim_engine)
     print(
         f"Historical cutoff: {cutoff.date()}, pre-match records: {len(eligible_matches)}, "
@@ -438,6 +456,7 @@ def main():
             args.recent_n,
             args.top_n,
             args.scenario,
+            storylines_engine,
         )
         dest = args.output_dir / f"match_studio_{phase}.json"
         dest.write_text(json.dumps(payload, indent=2, ensure_ascii=False, allow_nan=False), encoding="utf-8")
