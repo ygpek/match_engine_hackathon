@@ -16,6 +16,13 @@ from player_performance import load_player_history, player_profile, participatio
 from league_player_leaders import league_player_leaders
 from player_similarity_ui import similar_players, radar_profiles
 from win_probability_engine import predict, score_at
+from head_to_head_engine import (
+    select_battles,
+    historical_rates,
+    observed_shot_stats,
+    final_stats,
+    LABELS as H2H_METRIC_LABELS,
+)
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent
@@ -250,11 +257,108 @@ def cached_featured_lineups():
     return pd.read_parquet(ROOT / "featured_match" / "data" / "featured_match_lineups.parquet")
 
 
-def show_player_performance(payload, names, positions, home_name, away_name):
+def show_head_to_head(payload, replay_payload, phase, minute, history, lineups, names, positions, home_name, away_name):
+    st.markdown("### Head-to-head battles")
+    st.caption(
+        "Opposing starters selected using pre-match history. Comparisons are descriptive, not direct on-pitch duels or predictive ratings."
+    )
+    fixture = payload["fixture"]
+    battles = select_battles(lineups, fixture, positions, history)
+    if not battles:
+        st.info("No matching starting-player battles available for this fixture.")
+        return
+    events = replay_payload.get("observed_events", []) if phase != "prematch" else []
+    final_frame = None
+    if phase == "postmatch" and minute >= 90:
+        path = ROOT / "featured_match" / "data" / "featured_match_player_stats.parquet"
+        if path.exists():
+            final_frame = read_players(str(path))
+    for battle in battles:
+        home_pid, away_pid = battle["home_player_id"], battle["away_player_id"]
+        home_hist, home_sample = historical_rates(history, home_pid)
+        away_hist, away_sample = historical_rates(history, away_pid)
+        with st.container(border=True):
+            st.markdown(f"#### {battle['title']}")
+            c1, c2 = st.columns(2)
+            c1.markdown(f"**{names.get(home_pid, home_pid)}** · {home_name}")
+            c2.markdown(f"**{names.get(away_pid, away_pid)}** · {away_name}")
+            if phase == "prematch":
+                left, right = home_hist, away_hist
+                metrics = battle["historical_metrics"]
+                st.caption(
+                    f"Historical per 90 · last {min(10,home_sample)} / {min(10,away_sample)} appearances respectively"
+                )
+            else:
+                left = observed_shot_stats(events, home_pid, minute)
+                right = observed_shot_stats(events, away_pid, minute)
+                metrics = (
+                    ("goals", "shots", "shots_on_target", "xg")
+                    if battle["title"] != "Midfielders"
+                    else ("assists", "goals", "shots", "xg")
+                )
+                st.caption(f"Observed individual shot and goal events through {minute}′")
+                if final_frame is not None:
+                    left = final_stats(final_frame, fixture, home_pid)
+                    right = final_stats(final_frame, fixture, away_pid)
+                    metrics = battle["historical_metrics"]
+                    st.caption("Full-time individual match statistics")
+                elif battle["title"] == "Goalkeepers":
+                    # Team defensive exposure, not a claim that a particular GK saved the shot.
+                    def faced(team_id):
+                        against = [
+                            e
+                            for e in events
+                            if e.get("event_type") in ("shot", "goal")
+                            and str(e.get("team_id")) != str(team_id)
+                            and int(e.get("minute") or 0) <= minute
+                        ]
+                        return {
+                            "shots": len(against),
+                            "shots_on_target": sum(
+                                int(bool(e.get("is_on_target")) or e.get("event_type") == "goal") for e in against
+                            ),
+                            "goals": sum(int(e.get("event_type") == "goal") for e in against),
+                            "xg": round(sum(float(e.get("xg") or 0) for e in against), 2),
+                        }
+
+                    left = faced(fixture["home_team_id"])
+                    right = faced(fixture["away_team_id"])
+                    metrics = ("shots", "shots_on_target", "goals", "xg")
+                    st.caption(
+                        "Team defensive exposure while comparing goalkeepers: shots faced, shots on target faced, goals conceded and xG faced. These are NOT individual goalkeeper saves."
+                    )
+            rows = [
+                {
+                    "Statistic": (
+                        (
+                            {
+                                "shots": "Shots faced",
+                                "shots_on_target": "Shots on target faced",
+                                "goals": "Goals conceded",
+                                "xg": "xG faced",
+                            }.get(k, H2H_METRIC_LABELS.get(k, k.replace("_", " ").title()))
+                        )
+                        if battle["title"] == "Goalkeepers" and phase != "prematch" and final_frame is None
+                        else H2H_METRIC_LABELS.get(k, k.replace("_", " ").title())
+                    )
+                    + (" /90" if phase == "prematch" else ""),
+                    home_name: left.get(k, 0),
+                    away_name: right.get(k, 0),
+                }
+                for k in metrics
+                if k in left or k in right
+            ]
+            if rows:
+                st.dataframe(pd.DataFrame(rows), hide_index=True, use_container_width=True)
+            else:
+                st.caption("No comparable individual statistics available for this phase.")
+
+
+def show_player_performance(payload, replay_payload, phase, replay_minute, names, positions, home_name, away_name):
     st.markdown("### Individual player performance")
     st.caption(
         "Historical metrics are per 90 minutes and exclude the featured match and all later matches. "
-        "Featured-match individual actions cannot be attributed because shot events have no shooter IDs."
+        "Live comparisons use attributed shot events; complete individual match metrics are available only at full-time."
     )
     fixture = payload["fixture"]
     try:
@@ -263,6 +367,11 @@ def show_player_performance(payload, names, positions, home_name, away_name):
     except (FileNotFoundError, KeyError, ValueError) as exc:
         st.warning(f"Player analysis unavailable: {exc}")
         return
+    show_head_to_head(
+        payload, replay_payload, phase, replay_minute, history, lineups, names, positions, home_name, away_name
+    )
+    st.divider()
+    st.markdown("### Historical player performance and similarity")
     side = st.radio(
         "Team",
         ["home", "away"],
@@ -284,11 +393,17 @@ def show_player_performance(payload, names, positions, home_name, away_name):
     if not team_players:
         st.info("No featured-match participants available.")
         return
+    player_options = sorted(set(team_players), key=lambda x: player_sort_key(x, names, positions))
+    # New widget key avoids stale session state selecting a goalkeeper by default.
+    preferred = next((p for p in player_options if positions.get(p) == "CB"), None)
+    if preferred is None:
+        preferred = next((p for p in player_options if positions.get(p) not in ("GK", None)), player_options[0])
     player_id = st.selectbox(
         "Player",
-        sorted(team_players, key=lambda x: player_sort_key(x, names, positions)),
+        player_options,
+        index=player_options.index(preferred),
         format_func=lambda x: f'{names.get(x, x)} · {positions.get(x, "?")}',
-        key=f"performance_player_{side}",
+        key=f"performance_player_outfield_default_v3_{side}",
     )
     sample = st.select_slider(
         "Historical sample (last appearances)", options=[5, 10, 20, 50], value=10, key="performance_sample"
@@ -1179,7 +1294,16 @@ else:
 with lineup_tab:
     show_lineups(replay_payload, home_name, away_name, home_id, away_id, player_names, player_positions)
 with player_tab:
-    show_player_performance(payload, player_names, player_positions, home_name, away_name)
+    show_player_performance(
+        payload,
+        replay_payload,
+        phase,
+        replay_minute if phase != "prematch" else 0,
+        player_names,
+        player_positions,
+        home_name,
+        away_name,
+    )
 with stats_tab:
     if phase == "prematch":
         st.info(
