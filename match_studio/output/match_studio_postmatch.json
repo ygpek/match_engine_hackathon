@@ -2071,18 +2071,24 @@
       "goals": [
         {
           "minute": 27,
+          "running_score": "1–1",
+          "score_at_goal": "1–1 at 27′",
           "scorer_name": "Simon Rossi",
           "scorer_attributed": true,
           "assist_name": "Thomas Vidal"
         },
         {
           "minute": 47,
+          "running_score": "2–2",
+          "score_at_goal": "2–2 at 47′",
           "scorer_name": "Bruno Pavlov",
           "scorer_attributed": true,
           "assist_name": "Simon Rossi"
         },
         {
           "minute": 82,
+          "running_score": "3–2",
+          "score_at_goal": "3–2 at 82′",
           "scorer_name": "Oliver Vega",
           "scorer_attributed": true,
           "assist_name": "Oliver Novak"
@@ -2094,12 +2100,16 @@
       "goals": [
         {
           "minute": 22,
+          "running_score": "0–1",
+          "score_at_goal": "0–1 at 22′",
           "scorer_name": "Victor Wolf",
           "scorer_attributed": true,
           "assist_name": "Kevin Garcia"
         },
         {
           "minute": 32,
+          "running_score": "1–2",
+          "score_at_goal": "1–2 at 32′",
           "scorer_name": "Max Wolf",
           "scorer_attributed": true,
           "assist_name": "Kevin Garcia"

@@ -75,6 +75,10 @@ Presentation rules (MANDATORY for every phase):
 - No invented assists, saves, tackles, goalscorers, or other player actions.
 
 Goalscorer attribution (STRICT):
+- For score chronology, use each goal_summary entry's running_score and score_at_goal,
+  ordered by minute. Do not infer how many times a team led from goals alone.
+  A team leads only when its running score is strictly greater than the opponent's.
+- If the running score evidence is absent, avoid claims about how often a team led.
 - goal_summary is the sole authority for WHO scored in the featured match.
 - Only name a player as having scored if a goal_summary entry explicitly gives
   that player's scorer_name and scorer_attributed is true.

@@ -262,7 +262,6 @@ def cached_featured_lineups():
 
 
 def show_head_to_head(payload, replay_payload, phase, minute, history, lineups, names, positions, home_name, away_name):
-    st.markdown("### Head-to-head battles")
     st.caption("Opposing starters selected using pre-match history. Comparisons are descriptive, not direct on-pitch duels or predictive ratings.")
     fixture = payload["fixture"]
     battles = select_battles(lineups, fixture, positions, history)
@@ -601,7 +600,7 @@ def pitch_figure(player_ids, names, positions, starters):
                     color=["#f4f7fb" if pid in starters else "#ffd166" for pid in ids],
                     line=dict(color="#163f35", width=2),
                 ),
-                text=[n.split()[-1][:15] for n in labels],
+                text=[(f"{n.split()[0][0]}. {n.split()[-1]}" if len(n.split()) > 1 else n)[:19] for n in labels],
                 textposition="top center",
                 textfont=dict(color="white", size=11),
                 customdata=[[n, position, status] for n, status in zip(labels, statuses)],
@@ -1053,10 +1052,10 @@ if len(missing) == len(PHASES):
     st.error("No orchestration outputs found. Run `python match_studio/match_studio_orchestrator.py` first.")
     st.stop()
 
+# Primary phase navigation stays visible without opening or collapsing the sidebar.
+valid = [p for p in PHASES if available[p].exists()]
+phase = st.radio("Match phase", valid, format_func=lambda p: LABELS[p], horizontal=True, key="match_phase_top")
 with st.sidebar:
-    st.header("Match controls")
-    valid = [p for p in PHASES if available[p].exists()]
-    phase = st.radio("Match phase", valid, format_func=lambda p: LABELS[p], horizontal=False)
     if st.button("Refresh files"):
         st.cache_data.clear()
         st.rerun()
@@ -1286,7 +1285,11 @@ with stats_tab:
                     col.markdown(f"**{name}** · 🟨 {yellow} · 🟥 {red}")
             st.markdown("#### Match events")
             # Resolve actual event participants; unattributed historical shots stay unknown.
-            event_table = events.copy()
+            event_table = events.loc[~events["event_type"].astype(str).str.lower().isin(
+                ["kickoff", "kick_off", "halftime", "half_time", "fulltime", "full_time", "final_whistle"]
+            )].copy()
+            if event_table.empty:
+                st.caption("No match events to display.")
             if "player_id" in event_table.columns:
                 event_table["Player"] = event_table["player_id"].apply(
                     lambda pid: player_names.get(str(pid), "Unknown player") if pd.notna(pid) else "Not attributed"
@@ -1296,9 +1299,9 @@ with stats_tab:
             if "team_id" in event_table.columns:
                 event_table["Team"] = event_table["team_id"].astype(str).map(
                     {home_id: home_name, away_id: away_name}
-                ).fillna("Unknown")
+                ).fillna("—")
             else:
-                event_table["Team"] = "Unknown"
+                event_table["Team"] = "—"
             event_table["Event"] = event_table["event_type"].astype(str).str.replace("_", " ").str.title()
             display = [c for c in ("minute", "Team", "Event", "Player", "description", "xg") if c in event_table.columns]
             event_table = event_table[display].rename(columns={"minute": "Minute", "description": "Description", "xg": "xG"})

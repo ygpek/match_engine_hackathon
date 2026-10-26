@@ -337,7 +337,9 @@ def assemble(
                     "away": {"goal_count": 0, "goals": []}}
     disciplinary_summary = {"home": {"bookings": [], "dismissals": []},
                             "away": {"bookings": [], "dismissals": []}}
-    for event in visible.to_dict(orient="records"):
+    running_home_goals = 0
+    running_away_goals = 0
+    for event in visible.sort_values(["minute", "second"], kind="stable").to_dict(orient="records"):
         tid = str(event.get("team_id"))
         side = "home" if tid == str(home) else "away" if tid == str(away) else None
         if side is None:
@@ -345,9 +347,16 @@ def assemble(
         kind = event.get("event_type")
         pid = event.get("player_id")
         if kind == "goal":
+            if side == "home":
+                running_home_goals += 1
+            else:
+                running_away_goals += 1
             aid = event.get("assist_player_id")
             goal_summary[side]["goals"].append({
-                "minute": int(event["minute"]), "scorer_name": player_names.get(str(pid)),
+                "minute": int(event["minute"]),
+                "running_score": f"{running_home_goals}–{running_away_goals}",
+                "score_at_goal": f"{running_home_goals}–{running_away_goals} at {int(event['minute'])}′",
+                "scorer_name": player_names.get(str(pid)),
                 "scorer_attributed": player_names.get(str(pid)) is not None,
                 "assist_name": player_names.get(str(aid)) if pd.notna(aid) else None,
             })
