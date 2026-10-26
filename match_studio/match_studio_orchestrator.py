@@ -328,30 +328,63 @@ def assemble(
     # Exclude halftime/fulltime events at prematch and prevent event-log future disclosures.
     if phase == "prematch":
         visible = visible.iloc[0:0]
-    event_cols = ["minute", "second", "team_id", "event_type", "player_id", "description", "xg", "is_goal"]
+    event_cols = ["minute", "second", "team_id", "event_type", "player_id", "description", "xg", "is_goal", "is_on_target", "assist_player_id"]
     event_cols = [c for c in event_cols if c in visible.columns]
+    # Names and roles are explicit evidence, not model inference. Never expose
+    # future substitute arrival times in a prematch/halftime payload.
+    player_names = dict(zip(players.player_id.astype(str), players.player_name.astype(str)))
+    goal_summary = {"home": {"goal_count": 0, "goals": []},
+                    "away": {"goal_count": 0, "goals": []}}
+    disciplinary_summary = {"home": {"bookings": [], "dismissals": []},
+                            "away": {"bookings": [], "dismissals": []}}
+    for event in visible.to_dict(orient="records"):
+        tid = str(event.get("team_id"))
+        side = "home" if tid == str(home) else "away" if tid == str(away) else None
+        if side is None:
+            continue
+        kind = event.get("event_type")
+        pid = event.get("player_id")
+        if kind == "goal":
+            aid = event.get("assist_player_id")
+            goal_summary[side]["goals"].append({
+                "minute": int(event["minute"]), "scorer_name": player_names.get(str(pid)),
+                "scorer_attributed": player_names.get(str(pid)) is not None,
+                "assist_name": player_names.get(str(aid)) if pd.notna(aid) else None,
+            })
+            goal_summary[side]["goal_count"] += 1
+        elif kind in ("yellow_card", "red_card"):
+            key = "bookings" if kind == "yellow_card" else "dismissals"
+            disciplinary_summary[side][key].append({
+                "minute": int(event["minute"]), "player_name": player_names.get(str(pid)),
+                "event_type": kind,
+            })
+    # Catch event-field omissions and discrepancies before publishing phase JSON.
+    for tid in (str(home), str(away)):
+        observed_shots = visible.loc[
+            visible.team_id.astype(str).eq(tid) & visible.event_type.isin(["shot", "goal"])
+        ]
+        authoritative = snap.get("shots", {}).get(tid, {})
+        if authoritative:
+            expected = int(authoritative.get("shots_on_target", 0))
+            actual = int(observed_shots.is_on_target.fillna(False).astype(bool).sum())
+            if actual != expected:
+                raise ValueError(
+                    f"Shot-on-target mismatch at {phase} for {tid}: "
+                    f"observed {actual}, snapshot {expected}"
+                )
     league_expectations = (
         build_league_expectations(all_matches, teams, team_profiles, metadata, snap, phase)
-        if phase in ("prematch", "postmatch")
-        else None
+        if phase in ("prematch", "postmatch") else None
     )
     individual_review = (
         evaluate_player_match(featured_player_stats, players, fixture=metadata, lineups=lineups)
-        if phase == "postmatch"
-        else None
+        if phase == "postmatch" else None
     )
     player_storylines = (
         storylines_engine.build_storylines(
-            all_matches,
-            player_match_stats,
-            players,
-            metadata,
-            featured_stats=featured_player_stats,
-            lineups=lineups,
-            phase=phase,
-        )
-        if phase in ("prematch", "postmatch")
-        else None
+            all_matches, player_match_stats, players, metadata,
+            featured_stats=featured_player_stats, lineups=lineups, phase=phase
+        ) if phase in ("prematch", "postmatch") else None
     )
     return json_safe(
         {
@@ -366,6 +399,8 @@ def assemble(
             "team_recent_form": team_recent_form,
             "tactical_analysis": recommendations,
             "observed_events": visible[event_cols].to_dict(orient="records"),
+            "goal_summary": goal_summary,
+            "disciplinary_summary": disciplinary_summary,
             "evidence_provenance": {
                 "historical_cutoff_exclusive": str(history_date.date()),
                 "excluded_match_id": str(metadata["match_id"]),
@@ -426,7 +461,7 @@ def main():
     eligible_matches, cutoff = cutoff_data(matches, metadata)
     if eligible_matches.empty:
         print("WARNING: No historical matches predate the featured fixture; historical context will be empty.")
-    team_profiles = read_parquet(HIST_DATA / "team_profiles.parquet")
+    team_profiles = read_parquet(HIST_DATA/'team_profiles.parquet')
     profiles, appearance_count = build_asof_profiles(player_match_stats, eligible_matches, players, sim_engine)
     print(
         f"Historical cutoff: {cutoff.date()}, pre-match records: {len(eligible_matches)}, "

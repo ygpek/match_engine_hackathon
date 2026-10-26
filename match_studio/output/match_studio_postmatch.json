@@ -5,22 +5,6 @@
     "historical_cutoff_exclusive": "2026-02-28",
     "stories": [
       {
-        "player_id": "P0090",
-        "player_name": "Leo Miller",
-        "team_id": "T005",
-        "position": "GK",
-        "phase": "postmatch",
-        "type": "goalkeeper_clean_sheets",
-        "priority": 76,
-        "evidence": {
-          "clean_sheets_last_5_appearances": 4,
-          "appearances_considered": 5,
-          "consecutive_clean_sheets": 3,
-          "minimum_minutes_for_credit": 60
-        },
-        "related_storylines": []
-      },
-      {
         "player_id": "P0100",
         "player_name": "Simon Rossi",
         "team_id": "T005",
@@ -32,6 +16,8 @@
           "season_assists": 9,
           "last_5_assists": 1
         },
+        "lineup_status": "starter",
+        "featured_match_participated": true,
         "related_storylines": []
       },
       {
@@ -46,6 +32,8 @@
           "consecutive_scoring_appearances": 3,
           "goals_in_streak": 5
         },
+        "lineup_status": "starter",
+        "featured_match_participated": true,
         "related_storylines": [
           {
             "type": "creative_playmaker",
@@ -57,32 +45,19 @@
         ]
       },
       {
-        "player_id": "P0220",
-        "player_name": "Mateo Silva",
-        "team_id": "T010",
-        "position": "ST",
+        "player_id": "P0099",
+        "player_name": "Tomas Garcia",
+        "team_id": "T005",
+        "position": "CM",
         "phase": "postmatch",
-        "type": "scoring_streak",
-        "priority": 80,
+        "type": "creative_playmaker",
+        "priority": 59,
         "evidence": {
-          "consecutive_scoring_appearances": 5,
-          "goals_in_streak": 9
+          "season_assists": 6,
+          "last_5_assists": 1
         },
-        "related_storylines": []
-      },
-      {
-        "player_id": "P0217",
-        "player_name": "Liam Davis",
-        "team_id": "T010",
-        "position": "AMW",
-        "phase": "postmatch",
-        "type": "return_from_absence",
-        "priority": 73,
-        "evidence": {
-          "consecutive_team_matches_missed": 7,
-          "minutes_on_return": 8,
-          "absence_reason": "unknown"
-        },
+        "lineup_status": "starter",
+        "featured_match_participated": true,
         "related_storylines": []
       },
       {
@@ -97,10 +72,53 @@
           "season_assists": 12,
           "last_5_assists": 3
         },
+        "lineup_status": "starter",
+        "featured_match_participated": true,
         "related_storylines": []
+      },
+      {
+        "player_id": "P0218",
+        "player_name": "Max Wolf",
+        "team_id": "T010",
+        "position": "ST",
+        "phase": "postmatch",
+        "type": "scoring_streak",
+        "priority": 68,
+        "evidence": {
+          "consecutive_scoring_appearances": 3,
+          "goals_in_streak": 3
+        },
+        "lineup_status": "starter",
+        "featured_match_participated": true,
+        "related_storylines": []
+      },
+      {
+        "player_id": "P0213",
+        "player_name": "Viktor Navarro",
+        "team_id": "T010",
+        "position": "AMW",
+        "phase": "postmatch",
+        "type": "goal_drought",
+        "priority": 65,
+        "evidence": {
+          "consecutive_goalless_appearances": 9,
+          "season_goals": 8,
+          "last_8_shots": 19
+        },
+        "lineup_status": "starter",
+        "featured_match_participated": true,
+        "related_storylines": [
+          {
+            "type": "creative_playmaker",
+            "evidence": {
+              "season_assists": 5,
+              "last_5_assists": 0
+            }
+          }
+        ]
       }
     ],
-    "candidate_count": 26,
+    "candidate_count": 22,
     "note": "Only recorded appearances; absences are not identified as injuries. GK clean sheets use full-match team goals conceded and at least 60 minutes."
   },
   "individual_performance_review": {
@@ -1514,7 +1532,9 @@
       "player_id": null,
       "description": "Kickoff",
       "xg": null,
-      "is_goal": false
+      "is_goal": false,
+      "is_on_target": null,
+      "assist_player_id": null
     },
     {
       "minute": 13,
@@ -1524,7 +1544,9 @@
       "player_id": "P0110",
       "description": "Shot off target",
       "xg": 0.006545617401082728,
-      "is_goal": false
+      "is_goal": false,
+      "is_on_target": false,
+      "assist_player_id": null
     },
     {
       "minute": 14,
@@ -1534,7 +1556,9 @@
       "player_id": "P0101",
       "description": "Shot on target",
       "xg": 0.05910316312299393,
-      "is_goal": false
+      "is_goal": false,
+      "is_on_target": true,
+      "assist_player_id": null
     },
     {
       "minute": 16,
@@ -1544,7 +1568,9 @@
       "player_id": "P0110",
       "description": "Shot on target",
       "xg": 0.005,
-      "is_goal": false
+      "is_goal": false,
+      "is_on_target": true,
+      "assist_player_id": null
     },
     {
       "minute": 19,
@@ -1554,7 +1580,9 @@
       "player_id": "P0094",
       "description": "Yellow card",
       "xg": null,
-      "is_goal": false
+      "is_goal": false,
+      "is_on_target": null,
+      "assist_player_id": null
     },
     {
       "minute": 21,
@@ -1564,7 +1592,9 @@
       "player_id": "P0100",
       "description": "Shot on target",
       "xg": 0.013458562423101662,
-      "is_goal": false
+      "is_goal": false,
+      "is_on_target": true,
+      "assist_player_id": null
     },
     {
       "minute": 22,
@@ -1574,7 +1604,9 @@
       "player_id": "P0214",
       "description": "Goal",
       "xg": 0.25880936679220307,
-      "is_goal": true
+      "is_goal": true,
+      "is_on_target": true,
+      "assist_player_id": "P0210"
     },
     {
       "minute": 27,
@@ -1584,7 +1616,9 @@
       "player_id": "P0100",
       "description": "Goal",
       "xg": 0.06451453259556482,
-      "is_goal": true
+      "is_goal": true,
+      "is_on_target": true,
+      "assist_player_id": "P0098"
     },
     {
       "minute": 32,
@@ -1594,7 +1628,9 @@
       "player_id": "P0218",
       "description": "Goal",
       "xg": 0.08078751168281274,
-      "is_goal": true
+      "is_goal": true,
+      "is_on_target": true,
+      "assist_player_id": "P0210"
     },
     {
       "minute": 33,
@@ -1604,7 +1640,9 @@
       "player_id": "P0213",
       "description": "Shot off target",
       "xg": 0.009554593259779094,
-      "is_goal": false
+      "is_goal": false,
+      "is_on_target": false,
+      "assist_player_id": null
     },
     {
       "minute": 45,
@@ -1614,7 +1652,9 @@
       "player_id": null,
       "description": "Halftime",
       "xg": null,
-      "is_goal": false
+      "is_goal": false,
+      "is_on_target": null,
+      "assist_player_id": null
     },
     {
       "minute": 47,
@@ -1624,7 +1664,9 @@
       "player_id": "P0110",
       "description": "Goal",
       "xg": 0.09712363197541664,
-      "is_goal": true
+      "is_goal": true,
+      "is_on_target": true,
+      "assist_player_id": "P0100"
     },
     {
       "minute": 50,
@@ -1634,7 +1676,9 @@
       "player_id": "P0110",
       "description": "Shot off target",
       "xg": 0.05407859088033755,
-      "is_goal": false
+      "is_goal": false,
+      "is_on_target": false,
+      "assist_player_id": null
     },
     {
       "minute": 50,
@@ -1644,7 +1688,9 @@
       "player_id": "P0213",
       "description": "Shot on target",
       "xg": 0.07869801742735055,
-      "is_goal": false
+      "is_goal": false,
+      "is_on_target": true,
+      "assist_player_id": null
     },
     {
       "minute": 56,
@@ -1654,7 +1700,9 @@
       "player_id": "P0106",
       "description": "Shot on target",
       "xg": 0.062283979448615835,
-      "is_goal": false
+      "is_goal": false,
+      "is_on_target": true,
+      "assist_player_id": null
     },
     {
       "minute": 61,
@@ -1664,7 +1712,9 @@
       "player_id": "P0100",
       "description": "Shot off target",
       "xg": 0.10364590419311047,
-      "is_goal": false
+      "is_goal": false,
+      "is_on_target": false,
+      "assist_player_id": null
     },
     {
       "minute": 63,
@@ -1674,7 +1724,9 @@
       "player_id": "P0110",
       "description": "Shot on target",
       "xg": 0.0739817209845388,
-      "is_goal": false
+      "is_goal": false,
+      "is_on_target": true,
+      "assist_player_id": null
     },
     {
       "minute": 67,
@@ -1684,7 +1736,9 @@
       "player_id": "P0218",
       "description": "Shot off target",
       "xg": 0.2847834176994397,
-      "is_goal": false
+      "is_goal": false,
+      "is_on_target": false,
+      "assist_player_id": null
     },
     {
       "minute": 67,
@@ -1694,7 +1748,9 @@
       "player_id": "P0103",
       "description": "Shot on target",
       "xg": 0.0365750297014459,
-      "is_goal": false
+      "is_goal": false,
+      "is_on_target": true,
+      "assist_player_id": null
     },
     {
       "minute": 68,
@@ -1704,7 +1760,9 @@
       "player_id": "P0110",
       "description": "Player substituted off",
       "xg": null,
-      "is_goal": false
+      "is_goal": false,
+      "is_on_target": null,
+      "assist_player_id": null
     },
     {
       "minute": 68,
@@ -1714,7 +1772,9 @@
       "player_id": "P0109",
       "description": "Player substituted on",
       "xg": null,
-      "is_goal": false
+      "is_goal": false,
+      "is_on_target": null,
+      "assist_player_id": null
     },
     {
       "minute": 70,
@@ -1724,7 +1784,9 @@
       "player_id": "P0213",
       "description": "Shot off target",
       "xg": 0.11994425610559374,
-      "is_goal": false
+      "is_goal": false,
+      "is_on_target": false,
+      "assist_player_id": null
     },
     {
       "minute": 73,
@@ -1734,7 +1796,9 @@
       "player_id": "P0094",
       "description": "Player substituted off",
       "xg": null,
-      "is_goal": false
+      "is_goal": false,
+      "is_on_target": null,
+      "assist_player_id": null
     },
     {
       "minute": 73,
@@ -1744,7 +1808,9 @@
       "player_id": "P0099",
       "description": "Player substituted off",
       "xg": null,
-      "is_goal": false
+      "is_goal": false,
+      "is_on_target": null,
+      "assist_player_id": null
     },
     {
       "minute": 73,
@@ -1754,7 +1820,9 @@
       "player_id": "P0093",
       "description": "Player substituted on",
       "xg": null,
-      "is_goal": false
+      "is_goal": false,
+      "is_on_target": null,
+      "assist_player_id": null
     },
     {
       "minute": 73,
@@ -1764,7 +1832,9 @@
       "player_id": "P0102",
       "description": "Player substituted on",
       "xg": null,
-      "is_goal": false
+      "is_goal": false,
+      "is_on_target": null,
+      "assist_player_id": null
     },
     {
       "minute": 73,
@@ -1774,7 +1844,9 @@
       "player_id": "P0213",
       "description": "Shot on target",
       "xg": 0.08164437320631744,
-      "is_goal": false
+      "is_goal": false,
+      "is_on_target": true,
+      "assist_player_id": null
     },
     {
       "minute": 74,
@@ -1784,7 +1856,9 @@
       "player_id": "P0218",
       "description": "Shot on target",
       "xg": 0.022521693858631904,
-      "is_goal": false
+      "is_goal": false,
+      "is_on_target": true,
+      "assist_player_id": null
     },
     {
       "minute": 74,
@@ -1794,7 +1868,9 @@
       "player_id": "P0103",
       "description": "Shot on target",
       "xg": 0.01899313288289536,
-      "is_goal": false
+      "is_goal": false,
+      "is_on_target": true,
+      "assist_player_id": null
     },
     {
       "minute": 75,
@@ -1804,7 +1880,9 @@
       "player_id": "P0095",
       "description": "Player substituted off",
       "xg": null,
-      "is_goal": false
+      "is_goal": false,
+      "is_on_target": null,
+      "assist_player_id": null
     },
     {
       "minute": 75,
@@ -1814,7 +1892,9 @@
       "player_id": "P0096",
       "description": "Player substituted on",
       "xg": null,
-      "is_goal": false
+      "is_goal": false,
+      "is_on_target": null,
+      "assist_player_id": null
     },
     {
       "minute": 78,
@@ -1824,7 +1904,9 @@
       "player_id": "P0106",
       "description": "Shot off target",
       "xg": 0.05080226726785162,
-      "is_goal": false
+      "is_goal": false,
+      "is_on_target": false,
+      "assist_player_id": null
     },
     {
       "minute": 79,
@@ -1834,7 +1916,9 @@
       "player_id": "P0209",
       "description": "Shot off target",
       "xg": 0.04577171047116599,
-      "is_goal": false
+      "is_goal": false,
+      "is_on_target": false,
+      "assist_player_id": null
     },
     {
       "minute": 80,
@@ -1844,7 +1928,9 @@
       "player_id": "P0209",
       "description": "Player substituted off",
       "xg": null,
-      "is_goal": false
+      "is_goal": false,
+      "is_on_target": null,
+      "assist_player_id": null
     },
     {
       "minute": 80,
@@ -1854,7 +1940,9 @@
       "player_id": "P0212",
       "description": "Player substituted on",
       "xg": null,
-      "is_goal": false
+      "is_goal": false,
+      "is_on_target": null,
+      "assist_player_id": null
     },
     {
       "minute": 80,
@@ -1864,7 +1952,9 @@
       "player_id": "P0103",
       "description": "Shot on target",
       "xg": 0.06664600588025862,
-      "is_goal": false
+      "is_goal": false,
+      "is_on_target": true,
+      "assist_player_id": null
     },
     {
       "minute": 82,
@@ -1874,7 +1964,9 @@
       "player_id": "P0091",
       "description": "Player substituted off",
       "xg": null,
-      "is_goal": false
+      "is_goal": false,
+      "is_on_target": null,
+      "assist_player_id": null
     },
     {
       "minute": 82,
@@ -1884,7 +1976,9 @@
       "player_id": "P0213",
       "description": "Player substituted off",
       "xg": null,
-      "is_goal": false
+      "is_goal": false,
+      "is_on_target": null,
+      "assist_player_id": null
     },
     {
       "minute": 82,
@@ -1894,7 +1988,9 @@
       "player_id": "P0092",
       "description": "Player substituted on",
       "xg": null,
-      "is_goal": false
+      "is_goal": false,
+      "is_on_target": null,
+      "assist_player_id": null
     },
     {
       "minute": 82,
@@ -1904,7 +2000,9 @@
       "player_id": "P0217",
       "description": "Player substituted on",
       "xg": null,
-      "is_goal": false
+      "is_goal": false,
+      "is_on_target": null,
+      "assist_player_id": null
     },
     {
       "minute": 82,
@@ -1914,7 +2012,9 @@
       "player_id": "P0103",
       "description": "Goal",
       "xg": 0.1850940055527329,
-      "is_goal": true
+      "is_goal": true,
+      "is_on_target": true,
+      "assist_player_id": "P0091"
     },
     {
       "minute": 83,
@@ -1924,7 +2024,9 @@
       "player_id": "P0207",
       "description": "Player substituted off",
       "xg": null,
-      "is_goal": false
+      "is_goal": false,
+      "is_on_target": null,
+      "assist_player_id": null
     },
     {
       "minute": 83,
@@ -1934,7 +2036,9 @@
       "player_id": "P0208",
       "description": "Player substituted on",
       "xg": null,
-      "is_goal": false
+      "is_goal": false,
+      "is_on_target": null,
+      "assist_player_id": null
     },
     {
       "minute": 83,
@@ -1944,7 +2048,9 @@
       "player_id": "P0106",
       "description": "Shot off target",
       "xg": 0.02453083096169837,
-      "is_goal": false
+      "is_goal": false,
+      "is_on_target": false,
+      "assist_player_id": null
     },
     {
       "minute": 90,
@@ -1954,9 +2060,69 @@
       "player_id": null,
       "description": "Full time",
       "xg": null,
-      "is_goal": false
+      "is_goal": false,
+      "is_on_target": null,
+      "assist_player_id": null
     }
   ],
+  "goal_summary": {
+    "home": {
+      "goal_count": 3,
+      "goals": [
+        {
+          "minute": 27,
+          "scorer_name": "Simon Rossi",
+          "scorer_attributed": true,
+          "assist_name": "Thomas Vidal"
+        },
+        {
+          "minute": 47,
+          "scorer_name": "Bruno Pavlov",
+          "scorer_attributed": true,
+          "assist_name": "Simon Rossi"
+        },
+        {
+          "minute": 82,
+          "scorer_name": "Oliver Vega",
+          "scorer_attributed": true,
+          "assist_name": "Oliver Novak"
+        }
+      ]
+    },
+    "away": {
+      "goal_count": 2,
+      "goals": [
+        {
+          "minute": 22,
+          "scorer_name": "Victor Wolf",
+          "scorer_attributed": true,
+          "assist_name": "Kevin Garcia"
+        },
+        {
+          "minute": 32,
+          "scorer_name": "Max Wolf",
+          "scorer_attributed": true,
+          "assist_name": "Kevin Garcia"
+        }
+      ]
+    }
+  },
+  "disciplinary_summary": {
+    "home": {
+      "bookings": [
+        {
+          "minute": 19,
+          "player_name": "Diego Ivanov",
+          "event_type": "yellow_card"
+        }
+      ],
+      "dismissals": []
+    },
+    "away": {
+      "bookings": [],
+      "dismissals": []
+    }
+  },
   "evidence_provenance": {
     "historical_cutoff_exclusive": "2026-02-28",
     "excluded_match_id": "H20250287",

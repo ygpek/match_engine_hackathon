@@ -6,40 +6,42 @@
     "home_team_id": "T005",
     "away_team_id": "T010"
   },
-  "generated_at_utc": "2026-10-25T20:09:13.756281+00:00",
+  "generated_at_utc": "2026-10-26T17:24:21.093142+00:00",
   "deployment": "gpt-4.1-mini",
   "report": {
-    "headline": "Eastborough and Lakeside FC Set for Title-Contending Clash with Key Players in Form",
-    "overview": "Eastborough and Lakeside FC both sit comfortably within their title-contender expected league positions, with Eastborough second and Lakeside FC first. Eastborough boasts strong recent home form featuring high ball possession and an efficient attack, while Lakeside FC's recent run shows aggressive attacking with higher expected goal values. Notable players include Eastborough's goalkeeper Leo Miller, who has kept four clean sheets in his last five matches, and Lakeside FC's striker Mateo Silva, who is on a powerful scoring streak with nine goals in five consecutive scoring appearances.",
+    "headline": "Eastborough and Lakeside FC Gear Up for Title-Contender Clash with Strong Creative Midfields",
+    "overview": "Eastborough sits comfortably in second place, well within their expected title-contender range, boasting a recent unbeaten run with solid attacking and possession stats. Lakeside FC leads the league, also within expectations, showing strong scoring form but with a more modest possession average. Both teams field lineups featuring key creative midfielders who have contributed assists throughout the season, setting the stage for an intriguing midfield battle. Tactical substitutions remain flexible, with credible bench options to maintain balance or inject more attacking impetus if needed.",
     "key_insights": [
       {
-        "text": "Eastborough currently occupies 2nd position, well within their expected title-contender range of 1st to 3rd, having accumulated 56 points with a goal difference of +26 after 28 matches."
+        "text": "Eastborough has excelled in recent matches, remaining unbeaten with four wins and a draw from their last five, demonstrating an impressive average of nearly 1.9 expected goals per match and strong possession dominance."
       },
       {
-        "text": "Lakeside FC leads the league in 1st place, also within their title-contender benchmark ranging from 1st to 3rd, with 65 points and an impressive +43 goal difference."
+        "text": "Lakeside FC leads the league and also fits within their expected positioning as a title contender, with a higher average expected goals per match reflecting a potent attack, though their possession rate is comparatively lower than Eastborough’s."
       },
       {
-        "text": "Eastborough shows excellent recent home form with 4 wins and 1 draw in their last 5 home matches, averaging 68.7% possession and 16.4 shots per match, underpinned by an expected goals (xG) rate of 1.87 per match."
+        "text": "Eastborough’s midfield trio—Simon Rossi, Tomas Garcia, and David Schmidt—are all starters known for their creative playmaking, with a combined total of 19 assists this season and recent contributions confirming their ongoing influence."
       },
       {
-        "text": "Lakeside FC has recently gathered 10 points from 5 matches, with a strong attacking record of 11 goals and an average xG of 2.63 per match, though possession averages 41.7%, reflecting a more direct attacking approach."
+        "text": "Lakeside FC features a strong creative hub with Kevin Garcia, who leads the league with 10 assists this season and has been particularly productive recently, supporting the team’s attacking prowess."
       },
       {
-        "text": "Key player storylines: Eastborough's goalkeeper Leo Miller has an outstanding defensive record, with 4 clean sheets in his last 5 appearances including 3 consecutive shutouts, signaling reliable goalkeeping. Additionally, midfielder Simon Rossi contributes creativity with 8 season assists and 2 assists in his last 5 games. For Lakeside FC, striker Mateo Silva is in red-hot scoring form, netting 9 goals in 5 consecutive scoring appearances, and midfielder Kevin Garcia supports attack with 10 season assists including 3 in the last 5 matches."
+        "text": "Lakeside’s winger Viktor Navarro is experiencing a notable goal drought despite frequent shooting (15 shots in last 8 appearances), yet he has contributed 5 assists this season, indicating potential creative value beyond scoring."
       }
     ],
     "tactical_options": [
       {
-        "text": "Eastborough can consider strengthening their central midfield by substituting David Schmidt for Viktor Fischer, who has a higher historical position-relative suitability score, offering a balanced boost in midfield ability."
+        "text": "Eastborough has solid substitution options on the bench, including Max Keller as a central defender with strong defensive and physical attributes, and Benjamin Mendez on the wing with high attacking and possession scores, allowing tactical flexibility for both defense and offense."
       },
       {
-        "text": "Lakeside FC has strong winger options on the bench, particularly Benjamin Jensen and Jan Gomez, whose higher suitability scores indicate they could provide creative and physical impact if introduced on the wings."
+        "text": "Lakeside FC’s bench provides strong attacking substitutions such as Benjamin Jensen, who ranks highly in attacking, passing, and defensive suitability, suitable to enhance creativity and impact on the left midfield."
+      },
+      {
+        "text": "A potential midfield switch for Eastborough involves replacing David Schmidt with Viktor Fischer, who has a higher scenario-relative suitability score, offering a more defensively balanced and physically robust midfield presence."
       }
     ],
     "uncertainty": [
-      "Historical team form and player suitability scores describe past tendencies and do not guarantee in-match performance or outcome.",
-      "No information is available regarding recent injuries or fitness, thus player availability beyond those listed cannot be confirmed.",
-      "Current tactical formations and in-match adjustments are not provided; impact of substitutes depends on match context and strategy."
+      "Without in-match events, the exact impact of tactical substitutions and player form dynamics remains speculative.",
+      "Historical and seasonal data describe trends but do not guarantee performance consistency in this fixture."
     ]
   },
   "validation_note": "Evidence paths exist; narrative factual claims still require review."

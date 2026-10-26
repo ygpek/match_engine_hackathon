@@ -1,21 +1,25 @@
-# Eastborough Edge Past Lakeside FC in Competitive 3-2 Thriller
+# Eastborough edges out Lakeside FC in a thrilling 3-2 clash
 
-Eastborough secured a hard-fought 3-2 victory over title contenders Lakeside FC. The home side generated more shots and shots on target while slightly underperforming their expected goals. Lakeside FC, despite a strong effort with a very close xG total, left the pitch disappointed. Victor Wolf of Lakeside FC was named Player of the Match for his offensive contributions, while teammate Daniel Meyer struggled notably in midfield. Eastborough maintained their strong league position with this win, while Lakeside FC stayed top but lost ground on points.
+Eastborough secured a hard-fought 3-2 victory against fellow title contender Lakeside FC. The home side took the lead twice after initially conceding two goals. Despite Lakeside's high expected goals and strong shot quality, Eastborough's efficient finishing and control proved decisive. Victor Wolf from Lakeside was named Player of the Match for his goal and excellent dribbling, while Daniel Meyer struggled to influence the game.
 
 ## Key insights
-- Eastborough dominated possession and created more chances with 16 shots and 11 on target, converting 3 goals from an xG of 0.92, demonstrating effective finishing.
-- Lakeside FC produced fewer shots (9) and on-target attempts (5), but their quality of chances was high with an xG of 0.98, nearly matching Eastborough’s output.
-- Victor Wolf, playing as an attacking midfielder for Lakeside FC, earned Player of the Match with a goal, 1 shot on target from 1 total shot, 8 successful dribbles, and a key pass, evidencing his direct impact in attack.
-- Daniel Meyer, also from Lakeside FC, was the most disappointing performer, managing only 13 completed passes with no key passes or assists and minimal defensive contributions during 80 minutes.
-- League context confirms both Eastborough and Lakeside FC as title contenders, with Eastborough sitting 2nd with 59 points and Lakeside FC top with 65 points after this match, both within their expected top-three positions.
-- Eastborough’s goalkeeper Leo Miller contributed to the team’s competitive edge, having completed four clean sheets in his last five appearances including three consecutive, underlying the team's solid defensive foundation.
-- Oliver Vega of Eastborough is in a strong scoring run with five goals in his last three appearances, highlighting his recent offensive form as a key attacking midfielder, which included scoring in this match.
+- Eastborough dominated match shots (16) and shots on target (11) with an expected goals (xG) of 0.922, converting 3 goals.
+- Lakeside FC had fewer shots (9) and shots on target (5), but a slightly higher xG (0.983) reflecting quality chances resulting in 2 goals.
+- Kevin Garcia was instrumental for Lakeside FC with two assists setting up goals for Victor Wolf and Max Wolf in the first half.
+- Eastborough's Simon Rossi contributed significantly with a goal and an assist, while Oliver Vega scored the winning third goal late in the 82nd minute.
+- The only yellow card was shown to Eastborough's Diego Ivanov in the 19th minute; no player dismissals occurred.
+- Victor Wolf (Lakeside FC) earned Player of the Match honors with 1 goal, 8 successful dribbles, and 1 shot on target in 90 minutes.
+- Daniel Meyer (Lakeside FC) was the Most Disappointing Performer, completing only 13 passes, with no key passes or assists in 80 minutes.
+- Eastborough remains 2nd in the title contender category with 59 points after the win, staying within expected performance range.
+- Lakeside FC holds 1st place with 65 points, within the title contender expectations despite the loss and no points gained.
+- Creative playmaker Simon Rossi continues his impactful season for Eastborough with his 9th assist of the season and key involvement in the winning goal.
+- Oliver Vega boasts a three-match scoring streak, contributing 5 goals across these games including the decisive winning strike here.
 
 ## Tactical options
-- Eastborough could consider introducing Noah Ramos from the bench at attacking midfield to help protect the lead with his high attacking (80.6) and possession (64.2) scores, helping to maintain control.
-- Lakeside FC might increase offensive threat by substituting Jan Gomez or Benjamin Jensen into the attacking midfield roles; both have suitability scores above 86 in scenarios where a goal chase is necessary, bolstering attack creativity.
+- Eastborough could consider substituting in Stefan Popov (WB) to bolster defensive solidity when protecting a lead.
+- Lakeside FC, facing a goal deficit, might have benefited from introducing Jan Gomez or Benjamin Jensen (both AMW) who have higher historical suitability for chase scenarios.
 
 ## Limitations
-- While Eastborough’s 3 goals from an xG of 0.92 suggests good finishing, slight deviations between expected and actual goals always contain some randomness.
-- Historical form patterns provide descriptive context but do not determine exact outcomes for this single match.
-- Defensive and passing data is limited to completed halves, so full-match defensive impact assessments are partially constrained.
+- The absence of goalkeeper shot-stopping metrics limits detailed assessment of defensive performances.
+- Historical data and player suitability scores are descriptive and do not guarantee in-match performance outcomes.
+- Player absences without explicit injury evidence should not be assumed to be due to injury.

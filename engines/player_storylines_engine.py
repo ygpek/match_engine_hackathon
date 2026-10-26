@@ -135,10 +135,31 @@ def build_storylines(matches, player_stats, players, fixture, featured_stats=Non
                             {'consecutive_team_matches_missed':missed,
                              'minutes_on_return':int(rows.iloc[-1].minutes_played),
                              'absence_reason':'unknown'})
+    # Expose participation status explicitly, and avoid stories about unused
+    # substitutes in postmatch analysis. Prematch bench players may be discussed
+    # only as bench options, never as members of the starting XI.
+    lineup_status = {}
+    if lineups is not None and not lineups.empty:
+        for row in lineups.itertuples(index=False):
+            pid = str(row.player_id)
+            if bool(row.started):
+                status = "starter"
+            elif phase == "postmatch" and int(row.minute_on) < 90:
+                status = "substitute_used"
+            else:
+                status = "unused_substitute"
+            lineup_status[pid] = status
+    for candidate in candidates:
+        candidate["lineup_status"] = lineup_status.get(candidate["player_id"], "not_in_matchday_lineup")
+        candidate["featured_match_participated"] = (
+            phase == "postmatch" and candidate["lineup_status"] in ("starter", "substitute_used")
+        )
+    if phase == "postmatch":
+        candidates = [c for c in candidates if c["featured_match_participated"]]
     selected=[]
     for team in (str(fixture['home_team_id']),str(fixture['away_team_id'])):
         team_stories=sorted((c for c in candidates if c['team_id']==team),
-                            key=lambda x:(-x['priority'],x['player_id'],x['type']))
+                            key=lambda x:(x["lineup_status"] != "starter", -x["priority"], x["player_id"], x["type"]))
         used=set()
         for story in team_stories:
             if story['player_id'] in used:continue
